@@ -1,0 +1,44 @@
+<!-- INICIO CONTAINER SLIDE 2 -->
+<div class="container-slide fondo">
+  <!-- INICIO CONTAINER SCREENSHOTS -->
+  <div class="container app-contenedor-dos">
+    <!-- Titulo -->
+    <div class="panel-header header">
+      <p>
+        <h3 class="app-font-style-titulo"><span class="glyphicon glyphicon-phone"></span> Aplicaci&oacute;n Comeat. <span class="glyphicon glyphicon-phone"></span></h3>
+      </p>
+    </div>
+    <div class="panel-body fondo-dos">
+      <div class="col-xs-12 fondo-dos">
+        <carousel interval="setIntervalScreen">
+        <slide ng-repeat="pantallazo in pantallazos" active="pantallazo.active">
+        <div class="carousel-inner">
+          <div class="item active col-md-12">
+            <div class="col-xs-12 col-md-6">
+              <p>
+                <!-- Titulo de cada pantallazo -->
+                <h2>{{pantallazo.titulo}}</h2>
+              </p>
+              <!-- Inicio Texto -->
+              <p class="texto-img">
+                <span class="glyphicon glyphicon-menu-right app-color-marcador"></span> {{pantallazo.descripcion}}
+              </p>
+              <br>
+              <!-- Fin Texto -->
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <img class="img-thumbnail-dos app-imagenes-celular" ng-src="{{pantallazo.image}}" alt="imagen 1">
+            </div>
+          </div>
+        </div>
+        </slide>
+        </carousel>
+      </div>
+    </div>
+    <div class="panel-footer">
+      <a href="#" target="_blank"><img src="images/store.png" alt="Responsive image"></a>
+    </div>
+    <!-- FIN CONTAINER SCREENSHOTS -->
+  </div>
+  <!-- FIN CONTAINER SLIDE 2 -->
+</div>

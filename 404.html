@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Comeat | Proyecto</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/main.css">
+
+    <link rel="stylesheet" href="styles/comeat.css">
+
+    <link rel="stylesheet" href="styles/iconmoon.css">
+    <!-- endbuild -->
+  </head>
+  <body ng-app="comeatApp">
+    <!--[if lte IE 8]>
+      <p class="browserupgrade">Usted est&aacute; utilizando un navegador <strong>obsoleto (anticuado)</strong>. Por favor <a href="http://browsehappy.com/">actualice su navegador</a> para una mayor experiencia.</p>
+    <![endif]-->
+
+      <!-- Inicio menu -->
+    <header class="app-header">
+    <div class="navbar app-navbar">
+    <div class="container">
+    <div class="navbar-brand imagenLogo"><a href="#/index"><img  src="images/logotipo1.png" alt="Proyecto Comeat"></a></div>
+
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#js-navbar-collapse">
+        <span class="icon-bar app-icon"></span>
+        <span class="icon-bar app-icon"></span>
+        <span class="icon-bar app-icon"></span>
+        </button>
+      </div>
+      <!-- app-active = pestaña actual -->
+      <div class="collapse navbar-collapse" id="js-navbar-collapse">
+        <ul class="nav navbar-nav  app-nav">
+          <li><a href="#/" class=" app-centrar ">Inicio</a></li>
+
+          <li><a href="#/nosotros" class="app-centrar">Nosotros</a></li>
+
+          <li><a href="#/planes" class="app-centrar" >Planes</a></li>
+
+          <li class="app-navbar"><a href="#/contacto" class="app-centrar " >Cont&aacute;ctenos</a></li>
+
+          <li><a href="#/mapaComeat" class="app-centrar">Mapa</a></li>
+
+          <li><a href="#/socialComeat"class="app-centrar">Social-Comeat</a></li>
+        </ul>
+      </div>
+    </div>
+    </div>
+    </header>
+    <!-- Fin menu -->
+
+    <!-- Add your site or application content here -->
+
+
+   <!-- INICIO CONTAINER SLIDE 1-->
+<div class="fondo">
+<!-- INICIO CONTAINER SALUDO -->
+    <div class="container app-contenedor">
+      <div class="row">
+        <div class="col-xs-12">
+
+          <div class="jumbotron app-font-style-titulo fondo-dos">
+  <h1>Cont&aacute;ctanos.</h1>
+
+
+  <div class="clearfix"></div>
+  <!--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>-->
+</div>
+
+        </div>
+      </div>
+    </div>
+
+  <!-- FIN CONTAINER SALUDO -->
+</div>
+  <!-- FIN CONTAINER SLIDE 1-->
+
+
+
+  <!-- Inicio footer -->
+   <div data-ng-include src=" 'views/footer.html' "></div>
+  <!-- Fin footer -->
+  <!-- Inicio footer flotante -->
+  <div data-ng-include src=" 'views/footerfixed.html' "></div>
+  <!-- Fin footer flotante -->
+
+
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+     <script>
+       !function(A,n,g,u,l,a,r){A.GoogleAnalyticsObject=l,A[l]=A[l]||function(){
+       (A[l].q=A[l].q||[]).push(arguments)},A[l].l=+new Date,a=n.createElement(g),
+       r=n.getElementsByTagName(g)[0],a.src=u,r.parentNode.insertBefore(a,r)
+       }(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+       ga('create', 'UA-XXXXX-X');
+       ga('send', 'pageview');
+    </script>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+
+    <!-- endbower -->
+    <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/controllers/main.js"></script>
+        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/nosotros.js"></script>
+        <script src="scripts/controllers/planes.js"></script>
+        <script src="scripts/controllers/contacto.js"></script>
+        <script src="scripts/controllers/socialcomeat.js"></script>
+        <script src="scripts/controllers/mapacomeat.js"></script>
+        <!-- endbuild -->
+</body>
+</html>
