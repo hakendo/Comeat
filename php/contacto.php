@@ -1,70 +1,56 @@
 <?php
+  
 //Recepción de los datos
-/*
-    $Nombre = $_POST['nombre_txt']; // requerido
 
-    $Apellidos = $_POST['apellidos_txt']; // requerido
+    $Nombre = $_POST['nombres']; // requerido
 
-    $RazonSocial = $_POST['razon_txt']; // requerido
+    $Apellidos = $_POST['apellidos']; // requerido
 
-    $Correo = $_POST['email_txt']; // requerido
+    $RazonSocial = $_POST['razon']; // requerido
 
-    $Telefono = $_POST['telefono_txt']; // no requerido
+    $Correo = $_POST['email']; // requerido
 
-    $Celular = $_POST['celular_txt']; // no requerido
+    $Telefono = $_POST['telefono']; // no requerido
 
-    $Asunto = $_POST['asunto_txt'];
+    $Celular = $_POST['celular']; // no requerido
 
-    $Texto = $_POST['mensaje_txt']; // requerido
- */
+    $Asunto = $_POST['asunto'];
 
+    $Texto = $_POST['mensaje']; // requerido
+ 
 //Recepcion de datos por medio de AngularJS
    //para bd mysql $data = json_decode(file_get_contents("php://input"), true);
 
 
-   $data = json_decode(file_get_contents("php://input"));
-
-
-    $Nombre = $data->nombres;   // requerido
-
-    $Apellidos = $data->apellidos;  // requerido
-
-    $RazonSocial = $data->razon; // requerido
-
-    $Correo = $data->email;   // requerido
-
-    $Telefono = $data->telefono;   // no requerido
-
-    $Celular = $data->celular;   // no requerido
-
-    $Asunto = $data->asunto;
-
-    $Texto =  $data->mensaje;  // requerido
-
      //Fin de recepcion de datos
-     $para = "moises.cadima@gmail.com";
+     $para = "moises.cadima@comeat.cl";
 
       //Formulario
 
-     $mensaje = '<html><body><p>FORMULARIO DE CONTACTO</p><table>';
-     $mensaje .= '<tr><td align="right">Nombre:</td><td>'. $Nombre .'</td></tr>';
-     $mensaje .= '<tr><td align="right">Apellidos:</td align="left">'.$Apellidos.'</td></tr>';
-     $mensaje .= '<tr><td align="right">Raz&oacute;n social:</td align="left">'.$RazonSocial.'</td></tr>';
-     $mensaje .= '<tr><td align="right">Correo:</td align="left">'.$Correo.'</td></tr>';
-     $mensaje .= '<tr><td align="right">Telefono:</td align="left">'.$Telefono.'</td></tr>';
-     $mensaje .= '<tr><td align="right">Celular:</td align="left">'.$Celular.'</td></tr>';
-     $mensaje .= '<tr><td align="right">Asunto:</td align="left">'.$Asunto.'</td></tr>';
-     $mensaje .= '<tr><td align="right">MENSAJE:</td align="left">'.$Texto.'</td></tr>';
+     $mensaje = '<html><body><p>FORMULARIO DE CONTACTO</p>';
+
+     $mensaje .= '<table><tr><td align="right">Nombre:</td> <td>'. $Nombre .'</td></tr>';
+     $mensaje .= '<tr><td align="right">Apellidos:</td> <td align="left">'.$Apellidos.'</td></tr>';
+     $mensaje .= '<tr><td align="right">Raz&oacute;n social:</td> <td align="left">'.$RazonSocial.'</td></tr>';
+     $mensaje .= '<tr><td align="right">Correo:</td> <td align="left">'.$Correo.'</td></tr>';
+     $mensaje .= '<tr><td align="right">Telefono:</td> <td align="left">'.$Telefono.'</td></tr>';
+     $mensaje .= '<tr><td align="right">Celular:</td> <td align="left">'.$Celular.'</td></tr>';
+     $mensaje .= '<tr><td align="right">Asunto:</td> <td align="left">'.$Asunto.'</td></tr>';
+     $mensaje .= '<tr><td align="right">MENSAJE:</td> <td align="left">'.$Texto.'</td></tr>';
      $mensaje .= '</table></body></html>';
 
-    // Para dar un buen formato al correo electrónico
-    $headers  = 'MIME-Version: 1.0' . "\r\n";
-    $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+    // Para enviar un correo HTML, debe establecerse la cabecera Content-type
+    $cabeceras  = 'MIME-Version: 1.0' . "\r\n";
+    $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
+    // Cabeceras adicionales
+    $cabeceras .= 'To: Moises <mary@example.com>, Rodrigo <rodrguzman@gmail.com>, Contacto <contacto@comeat.cl>' . "\r\n";
+    $cabeceras .= 'From: formularioContacto <formularioContacto@comeat.cl>' . "\r\n";
+    $cabeceras .= 'Cc:' . "\r\n";
+    $cabeceras .= 'Bcc: moises.cadima@gmail.com' . "\r\n";
 
     // Mail
-    mail($para, $Asunto, $mensaje, $headers);
-    //echo $message pagina;
-    header("Location: ../FormEnviado.html");
+    mail($para, $Asunto, $mensaje, $cabeceras);
+    
 ?>
 

@@ -1,15 +1,28 @@
 <?php
     session_start();
-    if($_SESSION["privilegio"] == 1 )
+    //Primero analizamos si es un usuario logeado, o no.
+
+    if($_SESSION["AUTENTIFICADO"] == true )
     {
-        header("Location: ../principal-admin.php");
-    }else if ($_SESSION["privilegio"] == 2)
-    {
-        header("Location: ../principal.php");
-    }else if($_SESSION["privilegio"] == 3)
-    {
-        header("Location: ../inicio.php");
-    }else{
-        header("Location: ../cuenta.html");
-    }
+       //Ahora verificamos si es un administrador logeado o no, dependiendo del privilegio redireccionaremos.
+        if ($_SESSION["PRIVILEGIO"] == 1 && $_SESSION["esACTIVADO"] == 1)
+        {
+            header("Location: ../admin/loginCliente.php");
+        }else if($_SESSION["PRIVILEGIO"] == 2 && $_SESSION["esACTIVADO"] == 1)
+        {
+            header("Location: ../admin/loginCliente.php");
+        }else if($_SESSION["PRIVILEGIO"] == 3 && $_SESSION["esACTIVADO"] == 1)
+        {
+            header("Location: ../admin/loginCliente.php");
+
+        }else if($_SESSION["esACTIVADO"] == 0)
+        {
+            session_destroy();
+            header("Location: ../plantillas/tiempoFuera.html");
+        }
+    }else 
+        {
+            header("Location: ../login.html");
+        }
+
 ?>
