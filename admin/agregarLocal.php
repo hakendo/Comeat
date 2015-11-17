@@ -165,7 +165,7 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
                     <!-- Columna 1 -->
                     <div class="col-xs-4">
 
-                     <form id="formulario" name="formulario" method="post" action="../php/registrarLocal.php" enctype="multipart/form-data">
+                     <form id="formulario" name="formulario" enctype="multipart/form-data">
 
                       <!-- Nombre Local  -->
                       <div class="form-group">
@@ -175,7 +175,7 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
                       <!-- Direccion Local  -->
                       <div class="form-group">
                         <label for="asunto_form">Direcci&oacute;n de local:</label>
-                        <input type="text" minlength="2" maxlength="30" class="form-control" id="direccionLocal" name="direccionLocal" placeholder="Ingrese la direcci&oacute;n de su local" required/>
+                        <input type="text" minlength="2" maxlength="100" class="form-control" id="direccionLocal" name="direccionLocal" placeholder="Ingrese la direcci&oacute;n de su local" required/>
                       </div>
                       <!-- Razon social  -->
                       <div class="form-group">
@@ -203,17 +203,18 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
                         ?>
                       </select>
                     </div>
-                  </div>
-                  <!-- Columna 2 -->
-                  <div class="col-xs-4">
                     <!-- COMUNA  -->
                     <div class="form-group">
                      <label for="asunto_form">Comuna:</label>
                      <select id="comuna" name="comuna" class="form-control">
-                       <option value="">Selecciona una comuna</option>
+                       <option value="">Seleccione...</option>
                        
                      </select>
                    </div>
+                 </div>
+                 <!-- Columna 2 -->
+                 <div class="col-xs-4">
+
                    <!-- Telefono Local  -->
                    <div class="form-group">
                     <label for="asunto_form">Tel&eacute;fono de local:</label>
@@ -229,26 +230,30 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
                     <label for="asunto_form">Longitud:</label>
                     <input type="text"  min="5" maxlength="60" class="form-control" id="longitudLocal" name="longitudLocal" placeholder="Longitud" required/>
                   </div>
-                  <!-- Imagen --> 
-
+                  <!-- Categoria  -->
                   <div class="form-group">
+                   <label for="asunto_form">Categor&iacute;a:</label>
+                   <select id="categoria" name="categoria" class="form-control">
+                     <option value="RESTAURANTE">Restaurante</option>
+                     <option value="BAR">Bar</option>
+                     <option value="CAFETERIA">Cafetería</option>
+                   </select>
+                 </div>
+                 <!-- Imagen --> 
+
+                 <div class="form-group">
                    <label for="asunto_form">Imagen:</label>                                       
-                   <input id="imagen" name="imagen" class="input-file" type="file">
+                   <input id="imagen" name="imagen" class="input-file" required accept="image/*" type="file">
+                   <div id="errorImagen" name="errorImagen" class="hidden">
+                     <span class="label label-danger">Por favor selecciona una imagen</span>
+                   </div>
                  </div>
 
                </div>
                <!-- Columna 3 -->
                <div class="col-xs-4">
 
-                 <!-- Categoria  -->
-                 <div class="form-group">
-                   <label for="asunto_form">Categor&iacute;a:</label>
-                   <select id="categoria" name="categoria" class="form-control">
-                     <option value="restaurante">Restaurante</option>
-                     <option value="bar">Bar</option>
-                     <option value="cafeteria">Cafetería</option>
-                   </select>
-                 </div>
+
                  <!-- Email local  -->
                  <div class="form-group">
                   <label for="asunto_form">Email:</label>
@@ -259,7 +264,12 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
                   <label for="asunto_form">Web:</label>
                   <input type="text" minlength="6" maxlength="60" class="form-control" id="webLocal" name="webLocal" placeholder="www.ejemplo.cl" />
                 </div>
-
+                
+                <!-- Descripcion -->
+                <div class=" form-group">
+                  <label for="descripcion_form">Descripci&oacute;n</label>
+                  <textarea  class="formulario-area" cols="1" rows="1" id="descripcion" name="descripcion" placeholder="Descripci&oacute;n del local..."></textarea>
+                </div>
 
                 <!-- ID LOCAL -->
                 <div class="form-group">
@@ -273,7 +283,7 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
                </div>
 
                <div class="form-group">
-                <input type="submit" id="btnAgregarLocal" name="btnAgregarLocal" class="btn btn-success" value="Agregar nuevo local"> 
+                <input type="button" id="btnAgregarLocal" name="btnAgregarLocal" class="btn btn-success" value="Agregar nuevo local"> 
               </div>  
 
             </form> 

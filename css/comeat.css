@@ -200,9 +200,7 @@ body{
     border-color: none;
     box-shadow: none;
 }
-.ventana-contenido{
-  background-color:
-}
+
 .ventana-anexo{
   background-color: #FFC98F;
 }
@@ -629,4 +627,7 @@ fieldset[disabled] .btn-oro.active {
   margin: 0px;
   border-style: solid;
   border-color: rgba(0,0,0,0.2);
+}
+.descripcion{
+  
 }
