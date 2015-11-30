@@ -29,7 +29,7 @@ $(document).ready(function () {  
 			data: dataString,
 			cache: false,
 			success: function(result){
-				alert(result);
+			
 				if (result == 0)
 				{
 					window.location = 'plantillas/errorLoginAdmin.html';

@@ -100,18 +100,6 @@ $(document).ready(function () {  
 		$('.form-control#passRegistroUno').focus();
 			return false;
 		}else 
-		if(rutRegistroLargo <= 9)
-		{
-		alert('Por favor verifique el RUT.');
-		$('.form-control#rutRegistro').focus();
-			return false;
-		}else 
-		if(rutRegistroLargo >= 11)
-		{
-		alert('Por favor verifique el RUT.');
-		$('.form-control#rutRegistro').focus();
-			return false;
-		}else 
 		if(telefonoRegistro > 12 )
 		{
 		alert('Por favor el telefono.');
@@ -148,7 +136,7 @@ $(document).ready(function () {  
 				data: dataString,
 				cache: false,
 				success: function(result){
-					alert(result);
+
 					if (result == 1){
 						window.location = '../plantillas/clienteEditado.html';
 					}

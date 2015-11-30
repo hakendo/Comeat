@@ -628,6 +628,9 @@ fieldset[disabled] .btn-oro.active {
   border-style: solid;
   border-color: rgba(0,0,0,0.2);
 }
-.descripcion{
+.imagenEditar{
+  border-style: solid;
+  max-width: 300px;
+  max-height: 300px;
   
 }

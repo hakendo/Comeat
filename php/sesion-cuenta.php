@@ -15,6 +15,8 @@
         {
             header("Location: ../admin/loginCliente.php");
 
+        }else if($_SESSION["PRIVILEGIO"] == 9){
+            header("Location: ../admin/loginAdmin.php");
         }else if($_SESSION["esACTIVADO"] == 0)
         {
             session_destroy();

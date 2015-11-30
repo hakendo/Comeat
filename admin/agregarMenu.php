@@ -1,39 +1,44 @@
 <?php
- session_start();
-  if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PRIVILEGIO"] == 3){
-    if($_SESSION["esACTIVADO"] == 1)
-    {
+session_start();
+if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PRIVILEGIO"] == 3)
+{
+  if($_SESSION["esACTIVADO"] == 1)
+  {
       //Recopilación de información del usuario logeado.
-      $nombre = $_SESSION["NOMBRE"];
-      $apellidoPaterno = $_SESSION["APELLIDO1"];
-      $apellidoMaterno = $_SESSION["APELLIDO2"];
-      $correo = $_SESSION["CORREO"];
-      $id_cliente = $_SESSION["ID_CLIENTE"];
+    $nombre = $_SESSION["NOMBRE"];
+    $apellidoPaterno = $_SESSION["APELLIDO1"];
+    $apellidoMaterno = $_SESSION["APELLIDO2"];
+    $correo = $_SESSION["CORREO"];
+    $id_cliente = $_SESSION["ID_CLIENTE"];
       //Datos de QUERY
-      require'../PDO/conexion.php';
-     $objConnect = new Conexion();
+    require'../PDO/conexion.php';
+
+    $objConnect = new Conexion();
      //Inicio de rescate de variables por medio de PHP.
-     $objConnect->connect();
+    $objConnect->connect();
      //Verificamos el estado de la cuenta (sí o sí)
-     $consultaEstado = "SELECT esACTIVADO from cliente WHERE ID_CLIENTE = ".$id_cliente.";";
-     $query_Estado = mysql_query($consultaEstado) or die ("No se ha podido realizar la consulta en la BD".$consulta);
-     $col = mysql_fetch_array($query_Estado);               
-     if(!$col["esACTIVADO"] == 1){
-          
-          $_SESSION["esACTIVADO"] = 0;
-           $objConnect->closeConect();
-          session_destroy();
-          header("Location: ../plantillas/errorPrivilegios.html");
-         }
+    $consultaEstado = "SELECT esACTIVADO from cliente WHERE ID_CLIENTE = ".$id_cliente.";";
+    $query_Estado = mysql_query($consultaEstado) or die ("No se ha podido realizar la consulta en la BD".$consulta);
+    $col = mysql_fetch_array($query_Estado);               
+    if(!$col["esACTIVADO"] == 1){
+
+      $_SESSION["esACTIVADO"] = 0;
+      $objConnect->closeConect();
+      session_destroy();
+      header("Location: ../plantillas/errorPrivilegios.html");
+    }
     //Fin verificación de estado.
-   }else
-   {
+
+
+  }else
+  {
     header("Location: ../plantillas/tiempoFuera.html");
-   }
-  }else{
-     session_destroy();
-    header("Location: ../plantillas/errorPrivilegios.html");
   }
+}else
+{
+ session_destroy();
+ header("Location: ../plantillas/errorPrivilegios.html");
+}
 ?>
 
 <!doctype html>
@@ -127,9 +132,9 @@
                     <!-- app-active = pestaña actual -->
                     <div class="collapse navbar-collapse" id="menu">
                       <ul class="nav navbar-nav  app-nav">
-                        <li><a href="../php/sesion-cuenta.php" class=" app-centrar app-active">Locales</a></li>
+                        <li><a href="../php/sesion-cuenta.php" class=" app-centrar ">Locales</a></li>
 
-                        <li><a href="menus.php" class="app-centrar">men&uacute;s</a></li>
+                        <li><a href="menus.php" class="app-centrar app-active">men&uacute;s</a></li>
 
                         <li><a href="../planes.html" class="app-centrar" >Garzones</a></li>
                         <?php
@@ -158,9 +163,9 @@
                 <div class="panel-body fondo-dos">
                   <div class="col-xs-12 fondo-dos">
                     <!-- Columna 1 -->
-                    <div class="col-xs-4">
+                    <div class="col-xs-12 col-md-4">
 
-                     <form id="formulario" name="formulario" method="post" action="../php/registrarLocal.php" enctype="multipart/form-data">
+                     <form id="formulario" name="formulario" enctype="multipart/form-data">
 
                       <!-- Nombre Local  -->
                       <div class="form-group">
@@ -170,151 +175,191 @@
                       <!-- Direccion Local  -->
                       <div class="form-group">
                         <label for="asunto_form">Direcci&oacute;n de local:</label>
-                        <input type="text" minlength="2" maxlength="30" class="form-control" id="direccionLocal" name="direccionLocal" placeholder="Ingrese la direcci&oacute;n de su local" required/>
+                        <input type="text" minlength="2" maxlength="100" class="form-control" id="direccionLocal" name="direccionLocal" placeholder="Ingrese la direcci&oacute;n de su local" required/>
                       </div>
-                      <!-- Comuna  Local  -->
+
+
+                      <!-- REGION  -->
                       <div class="form-group">
-                        <label for="asunto_form">Comuna:</label>
-                        <input type="text" minlength="2" maxlength="30" class="form-control" id="comunaLocal" name="comunaLocal" placeholder="Comuna" required/>
-                      </div>
-                      <!-- Razon social  -->
-                      <div class="form-group">
-                        <label for="asunto_form">Raz&oacute;n social:</label>
-                        <input type="text" minlength="2" maxlength="30" class="form-control" id="razonLocal" name="razonLocal" placeholder="Raz&oacute;n social" required/>
-                      </div>
+                       <label for="asunto_form">Regi&oacute;n:</label>
+                       <select id="region" name="region" class="form-control">
+                         <option value="">Seleccione una regi&oacute;n</option>
+                         <?php
+                         
+                           //Inicio de rescate de variables por medio de PHP.
+                         $objConnect->connect();
+                           //Verificamos el estado de la cuenta (sí o sí)
+                         $queryRegion = "SELECT * from region;";
+                         $datos_Region = mysql_query($queryRegion) or die ("No se ha podido realizar la consulta en la BD".$consulta);
+                         while ($row = mysql_fetch_array($datos_Region)){
+                          echo "<option value='".$row['ID_REGION']."'>".$row['NOMBRE_REGION']."</option>";
+                        } 
+                        $objConnect->closeConect();
+
+                        ?>
+                      </select>
                     </div>
-                    <!-- Columna 2 -->
-                    <div class="col-xs-4">
-
-                      <!-- Telefono Local  -->
-                      <div class="form-group">
-                        <label for="asunto_form">Tel&eacute;fono de local:</label>
-                        <input type="text"  maxlength="13" class="form-control" id="telefonoLocal" name="telefonoLocal" placeholder="N&uacute;mero telef&oacute;nico" />
-                      </div>
-                      <!-- Latitud  -->
-                      <div class="form-group">
-                        <label for="asunto_form">Latitud:</label>
-                        <input type="text" min="5" minlength="2" maxlength="60" class="form-control" id="latitudLocal" name="latitudLocal" placeholder="Latitud" required/>
-                      </div>
-                      <!-- Longitud  -->
-                      <div class="form-group">
-                        <label for="asunto_form">Longitud:</label>
-                        <input type="text"  min="5" maxlength="60" class="form-control" id="longitudLocal" name="longitudLocal" placeholder="Longitud" required/>
-                      </div>
-                      <!-- Imagen --> 
-
-                      <div class="form-group">
-                       <label for="asunto_form">Imagen:</label>                                       
-                       <input id="imagen" name="imagen" class="input-file" type="file">
-                     </div>
-
-                   </div>
-                   <!-- Columna 3 -->
-                   <div class="col-xs-4">
-
-                     <!-- Categoria  -->
-                     <div class="form-group">
-                       <label for="asunto_form">Categor&iacute;a:</label>
-                       <select id="categoria" name="categoria" class="form-control">
-                         <option value="restaurante">Restaurante</option>
-                         <option value="bar">Bar</option>
-                         <option value="cafeteria">Cafetería</option>
-                       </select>
-                     </div>
-                     <!-- Email local  -->
-                     <div class="form-group">
-                      <label for="asunto_form">Email:</label>
-                      <input type="email" minlength="6" maxlength="60" class="form-control" id="emailLocal" name="emailLocal" placeholder="ejemplo@dominio.cl" />
-                    </div>
-                    <!-- WebwebLocal local  -->
+                    <!-- COMUNA  -->
                     <div class="form-group">
-                      <label for="asunto_form">Web:</label>
-                      <input type="text" minlength="6" maxlength="60" class="form-control" id="webLocal" name="webLocal" placeholder="www.ejemplo.cl" />
-                    </div>
-
-
-                    <!-- ID LOCAL -->
-                    <div class="form-group">
-                     <input type="hidden" class="form-control" id="idLocal" name="idLocal" value="0" required/>
+                     <label for="asunto_form">Comuna:</label>
+                     <select id="comuna" name="comuna" class="form-control">
+                       <option value="">Seleccione...</option>
+                       
+                     </select>
                    </div>
-                   <!-- ID CLIENTE -->
+                 </div>
+                 <!-- Columna 2 -->
+                 <div class="col-xs-12 col-md-4">
+
+                   <!-- Telefono Local  -->
                    <div class="form-group">
-                     <input type="hidden" class="form-control" id="idCliente" name="idCliente" <?php
-                     echo "value='".$id_cliente."'";
-                     ?> required/>
+                    <label for="asunto_form">Tel&eacute;fono de local:</label>
+                    <input type="text"  maxlength="13" class="form-control" id="telefonoLocal" name="telefonoLocal" placeholder="N&uacute;mero telef&oacute;nico" />
+                  </div>
+                  <!-- Latitud  -->
+                  <div class="form-group">
+                    <label for="asunto_form">Latitud:</label>
+                    <input type="number" min="5" minlength="2" maxlength="60" class="form-control" id="latitudLocal" name="latitudLocal" placeholder="Latitud" required/>
+                  </div>
+                  <!-- Longitud  -->
+                  <div class="form-group">
+                    <label for="asunto_form">Longitud:</label>
+                    <input type="number"  min="5" maxlength="60" class="form-control" id="longitudLocal" name="longitudLocal" placeholder="Longitud" required/>
+                  </div>
+                  <!-- Categoria  -->
+                  <div class="form-group">
+                   <label for="asunto_form">Categor&iacute;a:</label>
+                   <select id="categoria" name="categoria" class="form-control">
+                     <option value="RESTAURANTE">Restaurante</option>
+                     <option value="BAR">Bar</option>
+                     <option value="CAFETERIA">Cafetería</option>
+                   </select>
+                 </div>
+                 <!-- Imagen --> 
+
+                 <div class="form-group">
+                   <label for="asunto_form">Imagen:</label>                                       
+                   <input id="imagen" name="imagen" class="input-file" required accept="image/*" type="file">
+                   <div id="errorImagen" name="errorImagen" class="hidden">
+                     <span class="label label-danger">Por favor selecciona una imagen</span>
                    </div>
+                   
+                 </div>
 
-                   <div class="form-group">
-                    <input type="submit" id="btnAgregarLocal" name="btnAgregarLocal" class="btn btn-success" value="Agregar nuevo local"> 
-                  </div>  
-
-                </form> 
+               </div>
+               <!-- Columna 3 -->
+               <div class="col-xs-12 col-md-4">
 
 
-              </div>
+                 <!-- Email local  -->
+                 <div class="form-group">
+                  <label for="asunto_form">Email:</label>
+                  <input type="email" minlength="6" maxlength="100" class="form-control" id="emailLocal" name="emailLocal" placeholder="ejemplo@dominio.cl" />
+                </div>
+                <!-- WebwebLocal local  -->
+                <div class="form-group">
+                  <label for="asunto_form">Web:</label>
+                  <input type="text" minlength="6" maxlength="120" class="form-control" id="webLocal" name="webLocal" placeholder="www.ejemplo.cl" />
+                </div>
+                
+                <!-- Descripcion -->
+                <div class=" form-group">
+                  <label for="descripcion_form">Descripci&oacute;n</label>
+                  <textarea  class="formulario-area" cols="1" rows="1" id="descripcion"  maxlength="150" name="descripcion" placeholder="Descripci&oacute;n del local..."></textarea>
+                </div>
 
-            </div>
+                <!-- ID LOCAL -->
+                <div class="form-group">
+                 <input type="hidden" class="form-control" id="idLocal" name="idLocal" value="0" required/>
+               </div>
+               <!-- ID CLIENTE -->
+               <div class="form-group">
+                 <input type="hidden" class="form-control" id="idCliente" name="idCliente" <?php
+                 echo "value='".$id_cliente."'";
+                 ?> required/>
+               </div>
+
+               <div class="form-group">
+                <input type="button" id="btnAgregarLocal" name="btnAgregarLocal" class="btn btn-success" value="Agregar nuevo local"> 
+              </div>  
+
+            </form> 
+
+
           </div>
-          <div class="panel-footer">
 
-          </div>
         </div>
       </div>
-      <!-- FIN CONTAINER SCREENSHOTS -->
-      
+      <div class="panel-footer">
+
+      </div>
+    </div>
+  </div>
+  <!-- FIN CONTAINER SCREENSHOTS -->
 
 
-      <!-- FIN CONTENEDOR EDITABLE -->
-      <!-- Inicio footer fijo -->
-      <div class="navbar app-navbar navbar">
-        <div class="app-footer">
-          <p>
-           Copyright © 2015 Comeat | Diseñado por <span><a class="app-href app-link" href="#">Hakendo</a></span> | Equipo <span><a class="app-href app-link" href="../index.html">Comeat</a></span>
-         </p>
-       </div>
-     </div>
-     <!-- Fin footer fijo -->
 
-      <!-- INICIO FOOTER FLOTANTE -->
-        <div class="navbar app-navbar navbar-fixed-bottom app-lista-redsocial">
-          <div class="app-footer-bot ">
-            <ul class="app-lista-redsocial">
-              <li>Siguenos en:
-              <a href="https://www.facebook.com/ComeatCL" target="_blank" class="app-link-facebook">
-              <span class="icon-facebook"></span></a></li>
+  <!-- FIN CONTENEDOR EDITABLE -->
+  <!-- Inicio footer fijo -->
+  <div class="navbar app-navbar navbar">
+    <div class="app-footer">
+      <p>
+       Copyright © 2015 Comeat | Diseñado por <span><a class="app-href app-link" href="#">Hakendo</a></span> | Equipo <span><a class="app-href app-link" href="../index.html">Comeat</a></span>
+     </p>
+   </div>
+ </div>
+ <!-- Fin footer fijo -->
 
-              <li><a href="https://www.twitter.com/ComeatCL" target="_blank" class="app-link-twitter">
-              <span class="icon-twitter"></span></a></li>
+ <!-- INICIO FOOTER FLOTANTE -->
+ <div class="navbar app-navbar navbar-fixed-bottom app-lista-redsocial">
+  <div class="app-footer-bot ">
+    <ul class="app-lista-redsocial">
+      <li>Siguenos en:
+        <a href="https://www.facebook.com/ComeatCL" target="_blank" class="app-link-facebook">
+          <span class="icon-facebook"></span></a></li>
 
-              <li><a href="https://www.youtube.com/channel/UCP8OAdelvoAKYs5ju3WJg_w" target="_blank" class="app-link-youtube">
+          <li><a href="https://www.twitter.com/ComeatCL" target="_blank" class="app-link-twitter">
+            <span class="icon-twitter"></span></a></li>
+
+            <li><a href="https://www.youtube.com/channel/UCP8OAdelvoAKYs5ju3WJg_w" target="_blank" class="app-link-youtube">
               <span class="icon-youtube"></span></a></li>
             </ul>
           </div>
         </div>
-       <!-- FIN FOOTER FLOTANTE -->
+        <!-- FIN FOOTER FLOTANTE -->
 
 
-            <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-            <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 
+        <script src="../js/jquery/locales.js"></script>
+        <script src="../js/jquery.numeric.js"></script>
 
+        <script type="text/javascript">
+     
+          $("#latitudLocal").numeric({ decimalPlaces: 20 });
+          $("#longitudLocal").numeric({ decimalPlaces: 20 });
+        $("#remove").click(
+          function(e)
+          {
+            e.preventDefault();
+            $(".numeric,.integer,.positive,.positive-integer,.decimal-2-places").removeNumeric();
+          }
+        );
+        </script>
 
+        <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
+        <script>
+          (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+            function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+          e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+          e.src='//www.google-analytics.com/analytics.js';
+          r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+          ga('create','UA-XXXXX-X','auto');ga('send','pageview');
+        </script>
+        <script src="../js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+        <script></script>
+        <script src="../js/bootstrap.min.js"></script>
 
-            <script src="../js/jquery/locales.js"></script>
-
-
-            <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-            <script>
-              (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-                function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-              e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-              e.src='//www.google-analytics.com/analytics.js';
-              r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-              ga('create','UA-XXXXX-X','auto');ga('send','pageview');
-            </script>
-            <script src="../js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-            <script></script>
-            <script src="../js/bootstrap.min.js"></script>
-
-          </body>
-          </html>
+      </body>
+      </html>

@@ -15,7 +15,7 @@ $objConnect->connect();
 $nombreLocal = $_POST['nombreLocal'];
 $direccionLocal =$_POST['direccionLocal'];
 $telefonoLocal= $_POST['telefonoLocal'];
-$razonLocal = $_POST['razonLocal'];
+$regionLocal = $_POST['region'];
 $comunaLocal = $_POST['comuna'];
 $latitudLocal = $_POST['latitudLocal'];
 $longitudLocal = $_POST['longitudLocal'];
@@ -61,7 +61,7 @@ $SQLcomprobarNombre = "SELECT NOMBRE_LOCAL FROM local where ID_CLIENTE = ".$idCl
 
 $esRegistrado = mysql_query($SQLcomprobarNombre);
 
-$SQLagregar = "INSERT INTO local VALUES(0,".$idCliente.",".$comunaLocal.",'".$nombreLocal."','".$direccionLocal."',".$latitudLocal.",".$longitudLocal.",'".$categoria."','".$URL_full."',0,'".$telefonoLocal."','".$descripcionLocal."');";
+$SQLagregar = "INSERT INTO local VALUES(0,".$idCliente.",".$regionLocal.",".$comunaLocal.",'".$nombreLocal."','".$direccionLocal."',".$latitudLocal.",".$longitudLocal.",'".$categoria."','".$URL_full."','".$emailLocal."','".$webLocal."',0,'".$telefonoLocal."','".$descripcionLocal."');";
 
 $resultado =  mysql_query($esRegistrado);
     $estado = 0;
@@ -92,7 +92,7 @@ $resultado =  mysql_query($esRegistrado);
                         if($thumb->error) {
                             echo $thumb->error;
                         } else {
-                            $thumb->resize(500);
+                            $thumb->resize(200,150);
                             $thumb->save_jpg($URL_long, $nombre_archivo);
                         }
                     }
@@ -104,7 +104,7 @@ $resultado =  mysql_query($esRegistrado);
                         if($thumb->error) {
                             echo $thumb->error;
                         } else {
-                            $thumb->resize(500);
+                            $thumb->resize(200,150);
                             $thumb->save_jpg($URL_long, $nombre_archivo);
                         }
                     }

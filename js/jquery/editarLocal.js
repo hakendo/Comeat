@@ -1,41 +1,7 @@
 $(document).ready(function () {  
 	//Inicio evento agregar local
 
-	$('#btnAgregar').click(function() {
-
-		window.location = '../admin/agregarLocal.php';
-	});	
-
-	$('#btnEditar').click(function() {
-
-			// Así accedemos al Valor de la opción seleccionada
-			var valor = $("#cmbLocales").val();
-			if (valor == 0){
-
-				alert('Por favor seleccione un local');
-		    // Si seleccionamos la opción "Texto 1"
-		    // nos mostrará por pantalla "1"
-		}else{
-		    	//Ejecucion AJAX.
-		    	var dataString = 'idLocal='+ valor;
-		    	$.ajax({
-		    		type:"POST",
-		    		url: "../php/seleccionarLocal.php",
-		    		data: dataString,
-		    		cache: false,
-		    		success: function(result){
-
-		    			window.location = 'editarLocal.php';
-		    		}
-		    	});
-		    }
-		});
-	/*$('#btnEditar').click(function() {
-
-		window.location = '../admin/editarLocal.php';
-	});	*/
-
-$('#btnAgregarLocal').click(function(){
+$('#btnEditarLocal').click(function(){
 
 	
 	
@@ -97,7 +63,7 @@ $('#btnAgregarLocal').click(function(){
 		var nombreLocal = $('.form-control#nombreLocal').val();
 		var direccionLocal = $('.form-control#direccionLocal').val();
 		var telefonoLocal = $('.form-control#telefonoLocal').val();
-		var comuna = $('.form-control#comuna').val();
+		var comuna = $('.form-control#comunaEdit').val();
 		var latitudLocal = $('.form-control#latitudLocal').val();
 		var longitudLocal= $('.form-control#longitudLocal').val();
 		var emailLocal = $('.form-control#emailLocal').val();
@@ -111,7 +77,7 @@ $('#btnAgregarLocal').click(function(){
 		
                              
 		$.ajax({
-                 url: '../php/registrarLocal.php',
+                 url: '../php/editarLocal.php',
                  type: 'POST',
                  cache: false,
                  contentType: false,
@@ -120,15 +86,15 @@ $('#btnAgregarLocal').click(function(){
                  success: function(result){
                  	console.log(result);
                  	//Verificacion de imagen.
-                 	$("#errorImagen").addClass('hidden');
-                 	if (result == "imgError") {
-                 		$("#errorImagen").removeClass('hidden');
-                 	}else if (result == 1){
-                 		window.location = '../plantillas/yaExisteLocal.html'
-                 	}else if (result == 2){
-                 		window.location = '../plantillas/registroLocalCompleto.html';
-                 	}else if(result == 3){
-                 		window.location = '../plantillas/errorRegistro2.html';
+                 	if (result == 1)
+                 	{
+                 		window.location = '../plantillas/localEditado.html';
+                 	}
+                 	if(result == 2){
+                 		window.location = '../plantillas/localEditado.html';
+                 	}
+                 	if(result == 3){
+                 		window.location = '../plantillas/errorPrivilegios.htmll';
                  	}
                  	                	
 
@@ -142,9 +108,9 @@ $('#btnAgregarLocal').click(function(){
 
 	
 	//Cargar Comunas.
-	$('#region').change(function(){
+	$('#regionEdit').change(function(){
 
-		var VariableID_REGION = $('#region').val();
+		var VariableID_REGION = $('#regionEdit').val();
 
 		if(VariableID_REGION == ""){
 			alert('Por favor seleccione una REGION');
@@ -157,7 +123,7 @@ $('#btnAgregarLocal').click(function(){
 				data: dataString,
 				cache: false,
 				success: function(result){
-					$("#comuna").html(result);
+					$("#comunaEdit").html(result);
 				}
 				
 

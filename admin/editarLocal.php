@@ -32,10 +32,13 @@
     //Consultas de página!
     $objConnect->connect();
      $consulta = "SELECT * FROM local WHERE ID_LOCAL =".$idLocal.";";
+
+     
      $ejecutar_consulta = mysql_query($consulta) or die ("No se ha podido realizar la consulta en la BD".$consulta);
-     $row = mysql_fetch_array($ejecutar_consulta);               
+     $columna = mysql_fetch_array($ejecutar_consulta);               
      $objConnect->closeConect();
     //Fin consultas de página!
+
    }else
    {
     header("Location: ../plantillas/tiempoFuera.html");
@@ -139,7 +142,7 @@
                 <ul class="nav navbar-nav  app-nav">
                   <li><a href="../php/sesion-cuenta.php" class=" app-centrar app-active">Locales</a></li>
 
-                  <li><a href="../nosotros.html" class="app-centrar">men&uacute;s</a></li>
+                  <li><a href="menus.php" class="app-centrar">men&uacute;s</a></li>
 
                   <li><a href="../planes.html" class="app-centrar" >Garzones</a></li>
 
@@ -155,117 +158,165 @@
             <!-- Titulo -->
             <div class="panel-header header">
               <p>
-                <h3 class="app-font-style-titulo"> Usted est&aacute; editando el local: <?php echo $row['NOMBRE_LOCAL'];     ?>.</h3>
+                <h3 class="app-font-style-titulo"> Usted est&aacute; editando el local: <?php echo $columna['NOMBRE_LOCAL'];     ?>.</h3>
               </p>
             </div>
             <div class="panel-body fondo-dos">
               <div class="col-xs-12 fondo-dos">
               <!-- Columna 1 -->
-              <div class="col-xs-4">
+              <div class="col-xs-12 col-md-4">
               
-                 <form id="formulario" name="formulario" method="post" action="../php/editarLocal.php" enctype="multipart/form-data">
-                <!-- Nombre Local  -->
+                 <form id="formulario" name="formulario" enctype="multipart/form-data">
+
+                      <!-- Nombre Local  -->
                       <div class="form-group">
                         <label for="asunto_form">Nombre de local:</label>
-                        <input type="text" minlength="2" maxlength="30" class="form-control" id="nombreLocal" name="nombreLocal" placeholder="Ingrese el nombre de su local" <?php
-                        echo "value='".$row['NOMBRE_LOCAL']."'";
-                        ?> required/>
+                        <input type="text" minlength="2" maxlength="30" class="form-control" id="nombreLocal" name="nombreLocal" placeholder="Ingrese el nombre de su local" required <?php echo "value='".$columna['NOMBRE_LOCAL']."'" ?> />
                       </div>
-                <!-- Direccion Local  -->
+                      <!-- Direccion Local  -->
                       <div class="form-group">
                         <label for="asunto_form">Direcci&oacute;n de local:</label>
-                        <input type="text" minlength="2" maxlength="30" class="form-control" id="direccionLocal" name="direccionLocal" placeholder="Ingrese la direcci&oacute;n de su local" <?php
-                        echo "value='".$row['DIRECCION_LOCAL']."'";
-                        ?>required/>
-                      </div>
-               <!-- Telefono Local  -->
-                      <div class="form-group">
-                        <label for="asunto_form">Tel&eacute;fono de local:</label>
-                        <input type="text" minlength="7" maxlength="13" class="form-control" id="telefonoLocal" name="telefonoLocal" placeholder="N&uacute;mero telef&oacute;nico" <?php
-                        echo "value='".$row['TELEFONO_LOCAL']."'";
-                        ?> required/>
-                      </div>
-                <!-- Razon social  -->
-                      <div class="form-group">
-                        <label for="asunto_form">Raz&oacute;n social:</label>
-                        <input type="text" minlength="2" maxlength="30" class="form-control" id="razonLocal" name="razonLocal" placeholder="Raz&oacute;n social"  <?php
-                        echo "value='".$row['RAZON_SOCIAL_LOCAL']."'";
-                        ?>required/>
-                      </div>
-              </div>
-              <!-- Columna 2 -->
-               <div class="col-xs-4">
-
-              	  <!-- Comuna  Local  -->
-                      <div class="form-group">
-                        <label for="asunto_form">Comuna:</label>
-                        <input type="text" minlength="2" maxlength="30" class="form-control" id="comunaLocal" name="comunaLocal" placeholder="Comuna" <?php
-                        echo "value='".$row['COMUNA_LOCAL']."'";
-                        ?> required/>
-                      </div>
-                   <!-- Latitud  -->
-                      <div class="form-group">
-                        <label for="asunto_form">Latitud:</label>
-                        <input type="text" minlength="2" maxlength="60" class="form-control" id="latitudLocal" name="latitudLocal" placeholder="Latitud" <?php
-                        echo "value='".$row['LATITUD_LOCAL']."'";
-                        ?> required/>
-                      </div>
-                    <!-- Longitud  -->
-                      <div class="form-group">
-                        <label for="asunto_form">Longitud:</label>
-                        <input type="text" minlength="2" maxlength="60" class="form-control" id="longitudLocal" name="longitudLocal" placeholder="Longitud" <?php
-                        echo "value='".$row['LONGITUD_LOCAL']."'";
-                        ?> required/>
+                        <input type="text" minlength="2" maxlength="100" class="form-control" id="direccionLocal" name="direccionLocal" placeholder="Ingrese la direcci&oacute;n de su local" required <?php echo "value='".$columna['DIRECCION_LOCAL']."'" ?>/>
                       </div>
 
-                      <!-- Imagen --> 
-                        <div class="form-group">
-                         <label for="asunto_form">Imagen:</label>                                       
-                         <input id="imagen" name="imagen" class="input-file" type="file">
-                       </div>
-              </div>
-              <!-- Columna 3 -->
-               <div class="col-xs-4">
-              	
-              	<!-- Categoria  -->
-              	<div class="form-group">
-              	<label for="asunto_form">Categor&iacute;a:</label>
-					<select id="categoria" name="categoria" class="form-control">
-              			
-              			<option value="restaurante">Restaurante</option>
-              			<option value="bar">Bar</option>
-              			<option value="cafeteria">Cafetería</option>
-              		</select>
-				</div>
-				<!-- Email local  -->
+                      <!-- REGION  -->
                       <div class="form-group">
-                        <label for="asunto_form">Email:</label>
-                        <input type="email" minlength="6" maxlength="60" class="form-control" id="emailLocal" name="emailLocal" placeholder="ejemplo@dominio.cl" <?php
-                        echo "value='".$row['EMAIL_LOCAL']."'";
-                        ?> required/>
-                      </div>
+                       <label for="asunto_form">Regi&oacute;n:</label>
+                       <select id="regionEdit" name="regionEdit" class="form-control">
+                         <option value="">Seleccione una regi&oacute;n</option>
+                         <?php
+                         
+                           //Inicio de rescate de variables por medio de PHP.
+                         $objConnect->connect();
+                           //Verificamos el estado de la cuenta (sí o sí)
+                         $queryRegion = "SELECT * from region ;";
+                         $datos_Region = mysql_query($queryRegion) or die ("No se ha podido realizar la consulta en la BD".$consulta);
+                         while ($row = mysql_fetch_array($datos_Region)){
+                          if ($columna['ID_REGION'] ==$row['ID_REGION']) {
+
+
+                            echo "<option selected='true' value='".$row['ID_REGION']."'>".$row['NOMBRE_REGION']."</option>";
+                          }else{
+                           echo "<option value='".$row['ID_REGION']."'>".$row['NOMBRE_REGION']."</option>";   
+                          }
+                         
+                        } 
+                        $objConnect->closeConect();
+
+                        ?>
+                      </select>
+                    </div>
+                    <!-- COMUNA  -->
+                    <div class="form-group">
+                     <label for="asunto_form">Comuna:</label>
+                     <select id="comunaEdit" name="comunaEdit" class="form-control">
+                       <option value="">Seleccione...</option>
+                       
+                     </select>
+                   </div>
+                 </div>
+                 <!-- Columna 2 -->
+                 <div class="col-xs-12 col-md-4">
+
+                   <!-- Telefono Local  -->
+                   <div class="form-group">
+                    <label for="asunto_form">Tel&eacute;fono de local:</label>
+                    <input type="text"  maxlength="13" class="form-control" id="telefonoLocal" name="telefonoLocal" placeholder="N&uacute;mero telef&oacute;nico" <?php echo "value='".$columna['TELEFONO_LOCAL'] ."'"?>/>
+                  </div>
+                  <!-- Latitud  -->
+                  <div class="form-group">
+                    <label for="asunto_form">Latitud:</label>
+                    <input type="number" min="5" minlength="2" maxlength="60" class="form-control" id="latitudLocal" name="latitudLocal" placeholder="Latitud" required <?php echo "value='".$columna['LATITUD_LOCAL'] ."'"?> />
+                  </div>
+                  <!-- Longitud  -->
+                  <div class="form-group">
+                    <label for="asunto_form">Longitud:</label>
+                    <input type="number"  min="5" maxlength="60" class="form-control" id="longitudLocal" name="longitudLocal" placeholder="Longitud" required <?php echo "value='".$columna['LONGITUD_LOCAL'] ."'"?>/>
+                  </div>
+                  <!-- Categoria  -->
+                  <div class="form-group">
+                   <label for="asunto_form">Categor&iacute;a:</label>
+                   <select id="categoria" name="categoria" class="form-control">
+                   <?php 
+                   if ($columna['ID_CATEGORIA_LOCAL'] == "RESTAURANTE") {
+                     echo "<option selected='true' value='RESTAURANTE'>Restaurante</option>";
+                     echo "<option value='BAR'>Bar</option>";
+                     echo "<option value='CAFETERIA'>Cafetería</option>";
+                   }else if ($columna['ID_CATEGORIA_LOCAL'] == "BAR") {
+                     echo "<option value='RESTAURANTE'>Restaurante</option>";
+                     echo "<option selected='true' value='BAR'>Bar</option>";
+                     echo "<option value='CAFETERIA'>Cafetería</option>";
+                   }else if ($columna['ID_CATEGORIA_LOCAL'] == "CAFETERIA") {
+                     echo "<option value='RESTAURANTE'>Restaurante</option>";
+                     echo "<option selected='true' value='BAR'>Bar</option>";
+                     echo "<option value='CAFETERIA'>Cafetería</option>";
+                   }
+                   
+
+                   ?>
+                     
+                     
+                     
+                   </select>
+                 </div>
+                 <!-- Imagen --> 
+
+                 <div class="form-group">
+                   <label for="asunto_form">Imagen:</label>                                       
+                   <input id="imagen" name="imagen" class="input-file" required accept="image/*" type="file">
+                   <div id="errorImagen" name="errorImagen" class="hidden">
+                     <span class="label label-danger">Por favor selecciona una imagen</span>
+                   </div>
+                 </div>
+                  <div class="imagenEditar">
+                    <img class="img-responsive" id="imagen_bd" name="imagen_bd" <?php echo "src='".$columna['URL_IMAGEN_LOCAL']."'" ?> alt="Imagen de local">
+                  </div>
+               </div>
+               <!-- Columna 3 -->
+               <div class="col-xs-12 col-md-4">
+
+
+                 <!-- Email local  -->
+                 <div class="form-group">
+                  <label for="asunto_form">Email:</label>
+                  <input type="email" minlength="6" maxlength="60" class="form-control" id="emailLocal" name="emailLocal" placeholder="ejemplo@dominio.cl" <?php echo "value='".$columna['CORREO_LOCAL']."'" ;?> />
+                </div>
                 <!-- WebwebLocal local  -->
-                      <div class="form-group">
-                        <label for="asunto_form">Web:</label>
-                        <input type="text" minlength="6" maxlength="60" class="form-control" id="webLocal" name="webLocal" placeholder="www.ejemplo.cl" <?php
-                        echo "value='".$row['WEB_LOCAL']."'";
-                        ?> required/>
-                      </div>
-
-
-                 	<!-- ID LOCAL -->
-
-                <!-- ID CLIENTE -->
                 <div class="form-group">
-                	<input type="hidden" class="form-control" id="URLIMAGEN" name="URLIMAGEN" <?php
-                  echo "value='".$row['IMAGEN_LOCAL']."'";
-                  ?> value="" required/>
+                  <label for="asunto_form">Web:</label>
+                  <input type="text" minlength="6" maxlength="60" class="form-control" id="webLocal" name="webLocal" placeholder="www.ejemplo.cl" <?php echo "value='".$columna['WEB_LOCAL']."'" ;?> />
+                </div>
+                
+                <!-- Descripcion -->
+                <div class=" form-group">
+                  <label for="descripcion_form">Descripci&oacute;n</label>
+                  <textarea  class="formulario-area" cols="1" rows="1" id="descripcion" name="descripcion" maxlength="150" placeholder="Descripci&oacute;n del local..."> <?php
+                   echo $columna['DESCRIPCION_LOCAL'];
+                   ?>
+                   </textarea>
                 </div>
 
+                <!-- ID LOCAL -->
                 <div class="form-group">
-				<input type="submit"  class="btn btn-warning" value="Finalizar edici&oacute;n"> 
-                </div>  
-                </form>
+                 <input type="hidden" class="form-control" id="idLocal" name="idLocal" value="0" required/>
+               </div>
+               <!-- ID CLIENTE -->
+               <div class="form-group">
+                 <input type="hidden" class="form-control" id="idCliente" name="idCliente" <?php
+                 echo "value='".$id_cliente."'";
+                 ?> required/>
+               </div>
+                <!-- url imagen -->
+               <div class="form-group">
+                 <input type="hidden" class="form-control" id="URLIMAGEN" name="URLIMAGEN" <?php
+                 echo "value='".$columna['URL_IMAGEN_LOCAL']."'";
+                 ?> required/>
+               </div>
+               <div class="form-group">
+                <input type="button" id="btnEditarLocal" name="btnEditarLocal" class="btn btn-warning" value="Editar local"> 
+              </div>  
+
+            </form> 
                        
                       
               </div>
@@ -317,7 +368,21 @@
            
 
 
-        <script src="../js/jquery/locales.js"></script>
+        <script src="../js/jquery/editarLocal.js"></script>
+        <script src="../js/jquery.numeric.js"></script>
+
+        <script type="text/javascript">
+     
+          $("#latitudLocal").numeric({ decimalPlaces: 20 });
+          $("#longitudLocal").numeric({ decimalPlaces: 20 });
+        $("#remove").click(
+          function(e)
+          {
+            e.preventDefault();
+            $(".numeric,.integer,.positive,.positive-integer,.decimal-2-places").removeNumeric();
+          }
+        );
+        </script>
 
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

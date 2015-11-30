@@ -1,23 +1,29 @@
 <?php
 	session_start();
-	if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PRIVILEGIO"] == 3){
+	if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PRIVILEGIO"] == 3)
+	{
 		$ruta = $_SESSION["CORREO"];
 	    $idCliente = $_SESSION["ID_CLIENTE"];
 	    $idLocal = $_SESSION["ID_LOCAL"];
 	    require'../PDO/conexion.php';
 	   //Capturar datos.
 	   
+		        //Capturar datos de form.
+
 		$nombreLocal = $_POST['nombreLocal'];
 		$direccionLocal =$_POST['direccionLocal'];
 		$telefonoLocal= $_POST['telefonoLocal'];
-		$razonLocal = $_POST['razonLocal'];
-		$comunaLocal = $_POST['comunaLocal'];
+		$regionLocal = $_POST['regionEdit'];
+		$comunaLocal = $_POST['comunaEdit'];
 		$latitudLocal = $_POST['latitudLocal'];
 		$longitudLocal = $_POST['longitudLocal'];
 		$emailLocal = $_POST['emailLocal'];
 		$webLocal =$_POST['webLocal'];
+		$idCliente = $_POST['idCliente'];
 		$categoria =  $_POST['categoria'];
-		$IMAGEN_LOCAL =  $_POST['URLIMAGEN'];
+		$esComeat = 0;
+		$descripcionLocal = $_POST['descripcion'];
+		$IMAGEN_LOCAL = [$_POST['URLIMAGEN']];
 		
 		//************************************
 		//************ CAPTURAR DATOS DE IMAGEN ***************
@@ -35,34 +41,27 @@
 		{
 		    $extension = ".gif";
 		}
+
+
 		$URL_long = "../cliente/".$ruta."/".$nombreLocal.'_'.$idCliente.'/';
 		$URL_short = "cliente/".$ruta."/".$nombreLocal.'_'.$idCliente.'/'; 
 		$URL_full = "http://www.comeat.cl/".$URL_short.$nombre_archivo.$extension;
 		$carpeta = "../cliente/".$ruta."/".$nombreLocal.'_'.$idCliente.'/';
 		
 
-		if($nombre_archivo == ""){
-			$URL_full ="HOLA";
-
-			$URL_full = $IMAGEN_LOCAL;
-			$URL_long = $IMAGEN_LOCAL;
-		}
-		/*echo $IMAGEN_LOCAL.'[ajale]</br>';
-		echo $URL_full.'</br>';
-		echo $URL_long;*/
-
 		//*****************************************************
-		if($IMAGEN_LOCAL == $URL_full)
+		if($nombre_archivo == "" )
 		{
 			//Se cambian los datos, exceptuando la imagen
 		$objConnect = new Conexion();
 	    //Inicio de rescate de variables por medio de PHP.
 	    $objConnect->connect();
-	    $SQLEditar = "UPDATE LOCAL SET NOMBRE_LOCAL='".$nombreLocal."', DIRECCION_LOCAL='".$direccionLocal."', TELEFONO_LOCAL='".$telefonoLocal."', RAZON_SOCIAL_LOCAL='".$razonLocal."', COMUNA_LOCAL='".$comunaLocal."', LATITUD_LOCAL='".$latitudLocal."', LONGITUD_LOCAL='".$longitudLocal."', CATEGORIA_LOCAL='".$categoria."', EMAIL_LOCAL='".$emailLocal."', WEB_LOCAL='".$webLocal."' WHERE ID_LOCAL=".$idLocal.";";
+	    $SQLEditar = "UPDATE local SET ID_REGION=".$regionLocal.", ID_COMUNA=".$comunaLocal.", NOMBRE_LOCAL='".$nombreLocal."', DIRECCION_LOCAL='".$direccionLocal."', LATITUD_LOCAL=".$latitudLocal.", LONGITUD_LOCAL=".$longitudLocal.", ID_CATEGORIA_LOCAL='".$categoria."', CORREO_LOCAL='".$emailLocal."', WEB_LOCAL='".$webLocal."', TELEFONO_LOCAL='".$telefonoLocal."', DESCRIPCION_LOCAL='".$descripcionLocal."' WHERE ID_CLIENTE=".$idCliente." AND ID_LOCAL=".$idLocal.";";
+	   
 	    $agregar = mysql_query($SQLEditar) or die ("No se ha podido editar el local :("); 
 	    $objConnect->closeConect();
+	    echo 1;
 	    return;
-	    header("Location: ../plantillas/localEditado.html");
 		}else{
 			//Se cambian todos los datos!!!!!!!!!!!!.
 			$carpeta = "../cliente/".$ruta."/".$nombreLocal."_".$idCliente;
@@ -71,10 +70,6 @@
                          //si se agrega correctamente damos un mensaje de que se registro con exito 
 
                //*******Creamos la carpeta y agregamos la imagen seleccionada**************
-
-
-
-
 
 			
                if(!file_exists($URL_long)) {
@@ -110,16 +105,18 @@
 		//Creación de imagen
 	    //Inicio de rescate de variables por medio de PHP.
 	    $objConnect->connect();
-	    $SQLEditar = "UPDATE LOCAL SET IMAGEN_LOCAL='".$URL_full."', NOMBRE_LOCAL='".$nombreLocal."', DIRECCION_LOCAL='".$direccionLocal."', TELEFONO_LOCAL='".$telefonoLocal."', RAZON_SOCIAL_LOCAL='".$razonLocal."', COMUNA_LOCAL='".$comunaLocal."', LATITUD_LOCAL='".$latitudLocal."', LONGITUD_LOCAL='".$longitudLocal."', CATEGORIA_LOCAL='".$categoria."', EMAIL_LOCAL='".$emailLocal."', WEB_LOCAL='".$webLocal."' WHERE ID_LOCAL=".$idLocal.";";
+	    $SQLEditar = "UPDATE local SET ID_REGION=".$regionLocal.", ID_COMUNA=".$comunaLocal.", NOMBRE_LOCAL='".$nombreLocal."', DIRECCION_LOCAL='".$direccionLocal."', LATITUD_LOCAL=".$latitudLocal.", LONGITUD_LOCAL=".$longitudLocal.", ID_CATEGORIA_LOCAL='".$categoria."', URL_IMAGEN_LOCAL='".$URL_full."', CORREO_LOCAL='".$emailLocal."', WEB_LOCAL='".$webLocal."', TELEFONO_LOCAL='".$telefonoLocal."', DESCRIPCION_LOCAL='".$descripcionLocal."' WHERE ID_CLIENTE=".$idCliente." AND ID_LOCAL=".$idLocal.";";
 	    
 	    $agregar = mysql_query($SQLEditar) or die ("No se ha podido editar el local :("); 
 	    $objConnect->closeConect();
-
-
-	    header("Location: ../plantillas/localEditado.html");
+	    echo 2;
+	    return;
+	
 	  }
 	}else{
-	header("Location: ../plantillas/errorPrivilegios.html");  
+	echo 3;
+	return;
+	
   }
 
 ?>

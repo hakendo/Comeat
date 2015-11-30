@@ -1,33 +1,3 @@
-<?php
- session_start();
-  if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PRIVILEGIO"] == 3 ){
-    
-    $nombre = $_SESSION["NOMBRE"];
-      $apellidoPaterno = $_SESSION["APELLIDO1"];
-      $apellidoMaterno = $_SESSION["APELLIDO2"];
-      $correo = $_SESSION["CORREO"];
-      $id_cliente = $_SESSION["ID_CLIENTE"];
-      $idLocal = $_SESSION["ID_LOCAL"];
-      //Datos de QUERY
-
-      require'../PDO/conexion.php';
-     $objConnect = new Conexion();
-     //Inicio de rescate de variables por medio de PHP.
-     $objConnect->connect();
-     $consulta = "SELECT * FROM local WHERE ID_LOCAL =".$idLocal.";";
-     $ejecutar_consulta = mysql_query($consulta) or die ("No se ha podido realizar la consulta en la BD: ".$consulta);
-     $row = mysql_fetch_array($ejecutar_consulta);
-     $objConnect->closeConect();
-       foreach($_SESSION as $key =>$valor)
-{
-echo "variable : $key Valor: $valor <br>";
-}
-     
-  }else{
-    header("Location: ../plantillas/errorPrivilegios.html");
-  }
-  
-?>
 
 <!doctype html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
@@ -90,89 +60,39 @@ echo "variable : $key Valor: $valor <br>";
         <!--  FIN HEADER MENU -->
         <!-- INICIO CONTENEDEOR EDITABLE -->
 
-        
+          <!-- INICIO CONTAINER SALUDO -->
+        <div class="container-slide fondo">
+          <div class="container app-contenedor">
+            <div class="row">
+              <div class="col-xs-12">
+                <div class="jumbotron app-font-style-titulo fondo-dos">
+                  <h1>Se ha editado una categor&iacute;a de men&uacute;</h1>
 
+                  <h4>Saludos cordiales: Equipo Comeat.</h4>
+                  <div class="clearfix">
+                  </div>
+                  <!--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a></p>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
         <!-- FIN CONTAINER SALUDO -->
 
         <!-- INICIO CONTAINER SCREENSHOTS -->
         <div class="container-slide fondo">
           <div class="container app-contenedor-dos">
-              <!-- INICIO NAVEGADOR PLAN  -->
-         <div class="navbar menu app-header" >
-            <div class="container">
-            <div class="navbar-brand imagenLogo"><a href="../index.html"><img 
-            <?php
-            if($_SESSION["PRIVILEGIO"] == 1){
-              echo "src='../img/logoOro.png'";
-            }else if($_SESSION["PRIVILEGIO"] == 2){
-              echo "src='../img/logoPlata.png'";
-            }else if($_SESSION["PRIVILEGIO"] == 3){
-              echo "src='../img/logoBronce.png'";
-            }
-            ?>  alt="Proyecto Comeat"></a></div>
-
-              <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menu">
-                <span class="icon-bar app-icon"></span>
-                <span class="icon-bar app-icon"></span>
-                <span class="icon-bar app-icon"></span>
-                </button>
-              </div>
-              <!-- app-active = pestaña actual -->
-              <div class="collapse navbar-collapse" id="menu">
-                <ul class="nav navbar-nav  app-nav">
-                  <li><a href="../php/sesion-cuenta.php" class=" app-centrar">Locales</a></li>
-
-                  <li><a href="menus.php" class="app-centrar app-active">men&uacute;s</a></li>
-
-                  <li><a href="../planes.html" class="app-centrar" >Garzones</a></li>
-                  <?php
-                    if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2){
-                      echo "<li><a href='../mapaComeat.html' class='app-centrar'>informes</a></li>";
-                    }
-
-                    if($_SESSION["PRIVILEGIO"] == 1){
-                      echo "<li><a href='../mapaComeat.html' class='app-centrar'>Informar</a></li>";
-                    }
-
-                  ?>
-                  
-                  <li><a href="../php/salir.php"class="app-centrar">[Cerrar sesi&oacute;n]</a></li>
-                </ul>
-              </div>
-            </div>
-            </div>
-        <!-- FIN NAVEGADOR PLAN  -->
             <!-- Titulo -->
             <div class="panel-header header">
               <p>
-                <h3 class="app-font-style-titulo"> Seleccione las acciones que desea realizar para los men&uacute;s del local: <?php echo $row['NOMBRE_LOCAL']; ?>.</h3>
+                <h3 class="app-font-style-titulo"> YUHU!! </h3>
               </p>
             </div>
             <div class="panel-body fondo-dos">
-            <p><h4 class="app-font-style-titulo-dos">La lista de "Menú", cambiar&aacute; dependiendo de la categor&iacute;a seleccionada.</h4></p>
-              <div class="col-xs-12 col-md-6 ">
-                <h2>Categor&iacute;a:</h2>
-                <select id="cmbCategoria" name="cmbCategoria" class="form-control"></select>
-                <br>
-                <input type="button" id="btnAgregarCategoria" name="btnAgregarCategoria" class="btn btn-success" value="Agregar">
-                <input type="button" id="btnEditarCategoria" name="btnEditarCategoria" class="btn btn-warning" value="Editar"> 
-                <input type="button" id="btnEliminarCategoria" name="btnEliminarCategoria" class="btn btn-danger" value="Eliminar"><br><br>
-                <input type="button" id="btnModificarOrdenCategoria" name="btnModificarOrdenCategoria" class="btn btn-primary" value="Modificar orden de categorias">
-
-                
+              <div class="col-xs-12 fondo-dos">
+    
               </div>
-           
-            
-              <div class="col-xs-12 col-md-6 ">
-              <h2>Men&uacute;:</h2>
-              <select id="cmbMenu" name="cmbMenu" class="form-control"></select>
-                <br>
-              <input type="button" id="btnAgregarMenu" name="btnAgregarMenu" class="btn btn-success" value="Agregar">
-              <input type="button" id="btnEditarMenu" name="btnEditarMenu" class="btn btn-warning" value="Editar"> 
-              <input type="button" id="btnEliminarMenu" name="btnEliminarMenu" class="btn btn-danger" value="Eliminar">
-              </div>
-             </div>
+            </div>
             <div class="panel-footer">
               
             </div>
@@ -218,9 +138,6 @@ echo "variable : $key Valor: $valor <br>";
            
 
 
-        <script src="../js/jquery/menus.js"></script>
-
-
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
             (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
@@ -232,7 +149,8 @@ echo "variable : $key Valor: $valor <br>";
         </script>
         <script src="../js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
         <script></script>
-       <script src="../js/bootstrap.min.js"></script>
+     
+        <script src="../js/bootstrap.min.js"></script>
         
     </body>
 </html>

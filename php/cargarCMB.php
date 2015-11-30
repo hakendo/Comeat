@@ -5,6 +5,8 @@
 
 	$VariableID_REGION = $_POST["VariableID_REGION"];
 	$queryComuna = "SELECT * from comuna where ID_REGION= ".$VariableID_REGION.";";
+
+	
 	$datos_Comuna = mysql_query($queryComuna) or die ("No se ha podido realizar la consulta en la BD".$consulta);
 	echo "<option value='seleccione' selected='true'>Seleccione...</option>";
 		while ($row = mysql_fetch_array($datos_Comuna)){

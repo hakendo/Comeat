@@ -163,7 +163,7 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
                 <div class="panel-body fondo-dos">
                   <div class="col-xs-12 fondo-dos">
                     <!-- Columna 1 -->
-                    <div class="col-xs-4">
+                    <div class="col-xs-12 col-md-4">
 
                      <form id="formulario" name="formulario" enctype="multipart/form-data">
 
@@ -177,11 +177,7 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
                         <label for="asunto_form">Direcci&oacute;n de local:</label>
                         <input type="text" minlength="2" maxlength="100" class="form-control" id="direccionLocal" name="direccionLocal" placeholder="Ingrese la direcci&oacute;n de su local" required/>
                       </div>
-                      <!-- Razon social  -->
-                      <div class="form-group">
-                        <label for="asunto_form">Raz&oacute;n social:</label>
-                        <input type="text" minlength="2" maxlength="30" class="form-control" id="razonLocal" name="razonLocal" placeholder="Raz&oacute;n social" required/>
-                      </div>
+
 
                       <!-- REGION  -->
                       <div class="form-group">
@@ -213,7 +209,7 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
                    </div>
                  </div>
                  <!-- Columna 2 -->
-                 <div class="col-xs-4">
+                 <div class="col-xs-12 col-md-4">
 
                    <!-- Telefono Local  -->
                    <div class="form-group">
@@ -223,12 +219,12 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
                   <!-- Latitud  -->
                   <div class="form-group">
                     <label for="asunto_form">Latitud:</label>
-                    <input type="text" min="5" minlength="2" maxlength="60" class="form-control" id="latitudLocal" name="latitudLocal" placeholder="Latitud" required/>
+                    <input type="number"  minlength="2" maxlength="60" class="form-control" id="latitudLocal" name="latitudLocal" placeholder="Latitud" required/>
                   </div>
                   <!-- Longitud  -->
                   <div class="form-group">
                     <label for="asunto_form">Longitud:</label>
-                    <input type="text"  min="5" maxlength="60" class="form-control" id="longitudLocal" name="longitudLocal" placeholder="Longitud" required/>
+                    <input type="number"   maxlength="60" class="form-control" id="longitudLocal" name="longitudLocal" placeholder="Longitud" required/>
                   </div>
                   <!-- Categoria  -->
                   <div class="form-group">
@@ -247,28 +243,29 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
                    <div id="errorImagen" name="errorImagen" class="hidden">
                      <span class="label label-danger">Por favor selecciona una imagen</span>
                    </div>
+                   
                  </div>
 
                </div>
                <!-- Columna 3 -->
-               <div class="col-xs-4">
+               <div class="col-xs-12 col-md-4">
 
 
                  <!-- Email local  -->
                  <div class="form-group">
                   <label for="asunto_form">Email:</label>
-                  <input type="email" minlength="6" maxlength="60" class="form-control" id="emailLocal" name="emailLocal" placeholder="ejemplo@dominio.cl" />
+                  <input type="email" minlength="6" maxlength="100" class="form-control" id="emailLocal" name="emailLocal" placeholder="ejemplo@dominio.cl" />
                 </div>
                 <!-- WebwebLocal local  -->
                 <div class="form-group">
                   <label for="asunto_form">Web:</label>
-                  <input type="text" minlength="6" maxlength="60" class="form-control" id="webLocal" name="webLocal" placeholder="www.ejemplo.cl" />
+                  <input type="text" minlength="6" maxlength="120" class="form-control" id="webLocal" name="webLocal" placeholder="www.ejemplo.cl" />
                 </div>
                 
                 <!-- Descripcion -->
                 <div class=" form-group">
                   <label for="descripcion_form">Descripci&oacute;n</label>
-                  <textarea  class="formulario-area" cols="1" rows="1" id="descripcion" name="descripcion" placeholder="Descripci&oacute;n del local..."></textarea>
+                  <textarea  class="formulario-area" cols="1" rows="1" id="descripcion"  maxlength="150" name="descripcion" placeholder="Descripci&oacute;n del local..."></textarea>
                 </div>
 
                 <!-- ID LOCAL -->
@@ -336,7 +333,20 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 
         <script src="../js/jquery/locales.js"></script>
+        <script src="../js/jquery.numeric.js"></script>
 
+        <script type="text/javascript">
+     
+          $("#latitudLocal").numeric({ decimalPlaces: 20 });
+          $("#longitudLocal").numeric({ decimalPlaces: 20 });
+        $("#remove").click(
+          function(e)
+          {
+            e.preventDefault();
+            $(".numeric,.integer,.positive,.positive-integer,.decimal-2-places").removeNumeric();
+          }
+        );
+        </script>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
         <script>
