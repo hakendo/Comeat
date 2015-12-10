@@ -2,7 +2,10 @@
 
 //Controlar acceso a la aplicación!
     //Consultar a la BD por el nombre de usuario y password:
-    
+       session_start();
+  if($_SESSION["PRIVILEGIO"] !== 9 ){
+    header("Location: ../plantillas/errorPrivilegios.html");
+}else{
     require'../PDO/conexion.php';
     $objConnect = new Conexion();
 
@@ -60,4 +63,5 @@
                } 
              }
     echo $estado;
+}
 ?>

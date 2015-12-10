@@ -26,10 +26,6 @@ $(document).ready(function () {  
 		    }
 
 		});
-	//agregar menu
-	$('#btnAgregarMenu').click(function(){					
-		window.location = 'agregarMenu.php';
-	});
 
 	$('#btnModificarOrdenCategoria').click(function(){					
 		window.location = 'ordenCategorias.php';
@@ -146,8 +142,8 @@ $(document).ready(function () {  
 		var idCliente = $("#idCliente").val();
 		var idLocal = $("#idLocal").val();
 		var idCatMenu = $("#idCatMenu").val();
-
-		var dataString = 'nombreCategoria='+ nombreCategoria + '&idCliente='+ idCliente + '&idLocal='+ idLocal + '&idCatMenu=' + idCatMenu;
+		var ordenCategoriaMenu = $('#orden_categoria').val();
+		var dataString = 'nombreCategoria='+ nombreCategoria + '&idCliente='+ idCliente + '&idLocal='+ idLocal + '&idCatMenu=' + idCatMenu + '&ordenCategoria=' + ordenCategoriaMenu;
 
 		$.ajax({
 			type:"POST",
@@ -193,11 +189,15 @@ $(document).ready(function () {  
 		if(valor == 0)
 		{
 			$('#noIngresoCategoria').removeClass('hidden');
+			$('#alertaMensajeModificarCategoria').addClass('hidden');
+			$('#btnModificarOrdenCategoriaSave').addClass('hidden');
 
 			
 		}else{
 			
 			$('#noIngresoCategoria').addClass('hidden');
+
+
 
 		}
 	});

@@ -3,6 +3,7 @@
 
 	
 	session_start();
+  if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PRIVILEGIO"] == 3){
 	$idLocal =$_SESSION['ID_LOCAL'];
 	$idCliente =$_SESSION['ID_CLIENTE'];
 
@@ -21,5 +22,8 @@
 	
 		}	 
 	$objConnect->closeConect();
+	}else{
+		    header("Location: ../plantillas/errorPrivilegios.html");
+	}
 
 ?>

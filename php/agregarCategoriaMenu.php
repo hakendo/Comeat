@@ -11,11 +11,12 @@
 		$idLocal =$_POST['idLocal'];
 		
 		$nombreCatMenu = $_POST['nombreCategoria'];
+		$ordenCategoria = $_POST['ordenCategoria'];
 
 		$objConnect = new Conexion();
 	    //Inicio de rescate de variables por medio de PHP.
 	    $objConnect->connect();
-	    $SQLAgregar = "INSERT INTO categoria_menu VALUES (0, ".$idCliente.", ".$idLocal.", '".$nombreCatMenu."');";
+	    $SQLAgregar = "INSERT INTO categoria_menu VALUES (0, ".$idCliente.", ".$idLocal.", '".$nombreCatMenu."',".$ordenCategoria.");";
 	   
 	   	
 	    $agregar = mysql_query($SQLAgregar) or die ("No se ha podido registrar el local :("); 
@@ -28,7 +29,7 @@
 	}else{
 
 		//El usuario no tiene permiso de acceder a este lugar!
-		echo 2;
+		header("Location: ../plantillas/errorPrivilegios.html");
 		return;
 	}
 ?>

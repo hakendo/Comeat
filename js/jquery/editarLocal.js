@@ -2,11 +2,7 @@ $(document).ready(function () {  
 	//Inicio evento agregar local
 
 $('#btnEditarLocal').click(function(){
-
-	
-	
-	
-		//Verificacion de campo imagen.
+	//Verificacion de campo imagen.
 	//obtenemos un array con los datos del archivo
 	var file = $("#imagen")[0].files[0];
     
@@ -89,15 +85,10 @@ $('#btnEditarLocal').click(function(){
                  	if (result == 1)
                  	{
                  		window.location = '../plantillas/localEditado.html';
-                 	}
+                 	}else
                  	if(result == 2){
                  		window.location = '../plantillas/localEditado.html';
                  	}
-                 	if(result == 3){
-                 		window.location = '../plantillas/errorPrivilegios.htmll';
-                 	}
-                 	                	
-
                  }
 	            });
 
@@ -163,4 +154,6 @@ $('#btnEditarLocal').click(function(){
 		//FIN IF
 		
 	});
+
+
 });

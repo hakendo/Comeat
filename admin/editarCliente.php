@@ -121,7 +121,7 @@
                 <option value="0">Seleccione...</option>
                  <?php 
                 $objConnect->connect();
-                $consulta = "select ID_CLIENTE, CORREO_CLIENTE from CLIENTE";
+                $consulta = "select ID_CLIENTE, CORREO_CLIENTE from cliente";
                 $ejecutar_consulta = mysql_query($consulta) or die ("No se ha podido realizar la consulta en la BD");
                
                   while ($row = mysql_fetch_array($ejecutar_consulta)) 

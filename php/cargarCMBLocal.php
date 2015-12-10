@@ -1,5 +1,7 @@
 <?php
+
 session_start();
+  if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PRIVILEGIO"] == 3){
 $idLocal = $_SESSION["ID_LOCAL"];
 require'../PDO/conexion.php';
 $objConnect = new Conexion();
@@ -33,5 +35,8 @@ while ($row = mysql_fetch_array($datos_Comuna)){
 	}
 }	 
 $objConnect->closeConect();
+}else{
+	    header("Location: ../plantillas/errorPrivilegios.html");
+}
 
 ?>

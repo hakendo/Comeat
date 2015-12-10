@@ -19,9 +19,9 @@
      $row = mysql_fetch_array($ejecutar_consulta);
      $objConnect->closeConect();
        foreach($_SESSION as $key =>$valor)
-{
-echo "variable : $key Valor: $valor <br>";
-}
+        {
+        echo "variable : $key Valor: $valor <br>";
+        }
      
   }else{
     header("Location: ../plantillas/errorPrivilegios.html");
@@ -125,10 +125,10 @@ echo "variable : $key Valor: $valor <br>";
 
                   <li><a href="menus.php" class="app-centrar app-active">men&uacute;s</a></li>
 
-                  <li><a href="../planes.html" class="app-centrar" >Garzones</a></li>
+                  <li><a href="garzones.php" class="app-centrar" >Garzones</a></li>
                   <?php
                     if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2){
-                      echo "<li><a href='../mapaComeat.html' class='app-centrar'>informes</a></li>";
+                      echo "<li><a href='informes.php' class='app-centrar'>informes</a></li>";
                     }
 
                     if($_SESSION["PRIVILEGIO"] == 1){
@@ -150,7 +150,11 @@ echo "variable : $key Valor: $valor <br>";
               </p>
             </div>
             <div class="panel-body fondo-dos">
-            <p><h4 class="app-font-style-titulo-dos">La lista de "Menú", cambiar&aacute; dependiendo de la categor&iacute;a seleccionada.</h4></p>
+            <div class="alert alert-info " role="alert"><p><h4 class="app-font-style-titulo-dos"><span class="glyphicon glyphicon-info-sign "></span> La lista de "Menú", cambiar&aacute; dependiendo de la "Categor&iacute;a" seleccionada.</h4></p></div>
+
+
+
+            
               <div class="col-xs-12 col-md-6 ">
                 <h2>Categor&iacute;a:</h2>
                 <select id="cmbCategoria" name="cmbCategoria" class="form-control"></select>
@@ -219,6 +223,7 @@ echo "variable : $key Valor: $valor <br>";
 
 
         <script src="../js/jquery/menus.js"></script>
+        <script src="../js/jquery/gestionMenu.js"></script>
 
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

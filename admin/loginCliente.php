@@ -136,10 +136,10 @@
 
                   <li><a href="menus.php" class="app-centrar">men&uacute;s</a></li>
 
-                  <li><a href="../planes.html" class="app-centrar" >Garzones</a></li>
+                  <li><a href="garzones.php" class="app-centrar" >Garzones</a></li>
                   <?php
                     if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2){
-                      echo "<li><a href='../mapaComeat.html' class='app-centrar'>informes</a></li>";
+                      echo "<li><a href='informes.php' class='app-centrar'>informes</a></li>";
                     }
 
                     if($_SESSION["PRIVILEGIO"] == 1){

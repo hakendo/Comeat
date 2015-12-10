@@ -23,7 +23,7 @@
 
 
      //Fin de recepcion de datos
-     $para = "moises.cadima@comeat.cl";
+     $para = "contacto@comeat.cl";
 
       //Formulario
 
@@ -44,13 +44,16 @@
     $cabeceras .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
 
     // Cabeceras adicionales
-    $cabeceras .= 'To: Moises <mary@example.com>, Rodrigo <rodrguzman@gmail.com>, Contacto <contacto@comeat.cl>' . "\r\n";
+    $cabeceras .= 'To: Moises <moises.cadima@comeat.cl>, Rodrigo <rodrguzman@gmail.com>, Contacto <contacto@comeat.cl>' . "\r\n";
     $cabeceras .= 'From: formularioContacto <formularioContacto@comeat.cl>' . "\r\n";
     $cabeceras .= 'Cc:' . "\r\n";
     $cabeceras .= 'Bcc: moises.cadima@gmail.com' . "\r\n";
 
     // Mail
     mail($para, $Asunto, $mensaje, $cabeceras);
+
+    //Crees que harás algo bueno viendo el correo de contacto?
+    //Idiota 
     
 ?>
 

@@ -136,9 +136,12 @@ $(document).ready(function () {  
 				data: dataString,
 				cache: false,
 				success: function(result){
-
+					
 					if (result == 1){
 						window.location = '../plantillas/clienteEditado.html';
+					}else if(result == 2)
+					{
+						window.location = '../plantillas/errorEditarCliente.html';
 					}
 				}
 			});

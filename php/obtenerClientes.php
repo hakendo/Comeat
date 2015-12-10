@@ -1,5 +1,8 @@
 <?php
-
+	session_start();
+  if($_SESSION["PRIVILEGIO"] !== 9 ){
+    header("Location: ../plantillas/errorPrivilegios.html");
+}else{
 	require'../PDO/conexion.php';
 	$objConnect = new Conexion();
 	
@@ -23,7 +26,7 @@
 	    return $datoCli;
     }
     
-
+}
     
 
 

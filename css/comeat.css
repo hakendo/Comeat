@@ -556,6 +556,15 @@ fieldset[disabled] .btn-oro.active {
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
 }
+.header-menu{
+  background-color: #626262;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-color: white;
+  margin-bottom: 0px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+}
 .img-centrada{
   margin: auto;
 }
@@ -632,5 +641,9 @@ fieldset[disabled] .btn-oro.active {
   border-style: solid;
   max-width: 300px;
   max-height: 300px;
-  
+}
+.font-titulo-informe{
+  text-align: center;
+  color: #B76100;
+  text-transform: uppercase;
 }

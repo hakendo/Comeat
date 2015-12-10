@@ -144,9 +144,9 @@
 
                   <li><a href="menus.php" class="app-centrar">men&uacute;s</a></li>
 
-                  <li><a href="../planes.html" class="app-centrar" >Garzones</a></li>
+                  <li><a href="garzones.php" class="app-centrar" >Garzones</a></li>
 
-                  <li><a href="../mapaComeat.html" class="app-centrar">informes</a></li>
+                  <li><a href="informes.php" class="app-centrar">informes</a></li>
                   <li role="separator" class="divider"></li>
 
                   <li><a href="../php/salir.php"class="app-centrar">[Cerrar sesi&oacute;n]</a></li>
@@ -170,8 +170,13 @@
 
                       <!-- Nombre Local  -->
                       <div class="form-group">
+                      
                         <label for="asunto_form">Nombre de local:</label>
-                        <input type="text" minlength="2" maxlength="30" class="form-control" id="nombreLocal" name="nombreLocal" placeholder="Ingrese el nombre de su local" required <?php echo "value='".$columna['NOMBRE_LOCAL']."'" ?> />
+                        <input  type="text" minlength="2" maxlength="30" class="form-control" id="nombreLocal" name="nombreLocal" placeholder="Ingrese el nombre de su local" editable='false' required <?php echo "value='".$columna['NOMBRE_LOCAL']."'"; 
+
+                          $_SESSION['NOMBRE_LOCAL'] = $columna['NOMBRE_LOCAL'];
+                        ?> />
+                        <span class="label label-warning">El nombe no podr&aacute; recibir cambios</span>
                       </div>
                       <!-- Direccion Local  -->
                       <div class="form-group">
@@ -290,10 +295,7 @@
                 <!-- Descripcion -->
                 <div class=" form-group">
                   <label for="descripcion_form">Descripci&oacute;n</label>
-                  <textarea  class="formulario-area" cols="1" rows="1" id="descripcion" name="descripcion" maxlength="150" placeholder="Descripci&oacute;n del local..."> <?php
-                   echo $columna['DESCRIPCION_LOCAL'];
-                   ?>
-                   </textarea>
+                  <textarea  class="formulario-area" cols="1" rows="1" id="descripcion" name="descripcion" maxlength="150" placeholder="Descripci&oacute;n del local..."><?php echo $columna['DESCRIPCION_LOCAL'];?></textarea>
                 </div>
 
                 <!-- ID LOCAL -->

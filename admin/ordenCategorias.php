@@ -40,7 +40,7 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
 
 
     //Query para ver el numero de menus ingresados.
-    $consulta = "SELECT * FROM categoria_menu WHERE ID_LOCAL=".$id_local." AND ID_CLIENTE=".$id_cliente.";";
+    $consulta = "SELECT * FROM categoria_menu WHERE ID_LOCAL=".$id_local." AND ID_CLIENTE=".$id_cliente." ORDER BY ORDEN_CATEGORIA_MENU ASC;";
     $query_consulta= mysql_query($consulta) or die ("No se ha podido realizar la consulta en la BD".$consulta);
         
 
@@ -150,10 +150,10 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
 
                         <li><a href="menus.php" class="app-centrar app-active">men&uacute;s</a></li>
 
-                        <li><a href="../planes.html" class="app-centrar" >Garzones</a></li>
+                        <li><a href="garzones.php" class="app-centrar" >Garzones</a></li>
                         <?php
                         if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2){
-                          echo "<li><a href='../mapaComeat.html' class='app-centrar'>informes</a></li>";
+                          echo "<li><a href='informes.php' class='app-centrar'>informes</a></li>";
                         }
 
                         if($_SESSION["PRIVILEGIO"] == 1){
@@ -181,12 +181,14 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
                     <div class='col-xs-12 hidden' id="noIngresoCategoria" name="noIngresoCategoria">
                       <p><h3 class="app-font-style-titulo-dos">Usted no ha ingresado categor&iacute;as</h3></p>
                     </div>
-                    <div id="alertaMensajeModificarCategoria">
+
+                    <div id="alertaMensajeModificarCategoria" name="alertaMensajeModificarCategoria">
                       <div class="alert alert-warning" role="alert">
                         <span class="glyphicon glyphicon-comment" aria-hidden="true"></span>
                         Si duplica el valor de un orden, no se visualizará como usted lo desea (Procure mantener la estructura de valores desde el 1 al 8)
                       </div>
                     </div>
+
                       <form id='formulario' name='formulario'>
                       <!-- Se comienza a mostrar todos los datos de las categorias -->
                       <?php 
@@ -239,6 +241,10 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
 
                                       <div class='form-group'>
                         <input type='button' id='btnModificarOrdenCategoriaSave' name='btnModificarOrdenCategoriaSave' class='btn btn-warning' value='Editar orden'> 
+
+                        <br>
+                        <br>
+                        <a href="ordenCategorias.php" class='btn btn-success' >Actualizar vista de orden</a> 
                       </div>  
                       </form>
               </div>

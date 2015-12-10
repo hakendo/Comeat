@@ -3,6 +3,8 @@
     //Controlar acceso a la aplicación!
         //Consultar a la BD por el nombre de usuario y password:
 session_start();
+    if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PRIVILEGIO"] == 3)
+    {
 require'../PDO/conexion.php';
 $ruta = $_SESSION["CORREO"];
 $objConnect = new Conexion();
@@ -26,6 +28,7 @@ $idCliente = $_POST['idCliente'];
 $categoria =  $_POST['categoria'];
 $esComeat = 0;
 $descripcionLocal = $_POST['descripcion'];
+$descripcionLocal = trim($descripcionLocal);
         //************************************
         //************ CAPTURAR DATOS DE IMAGEN ***************
 include("Thumbnail.class.php");
@@ -61,7 +64,7 @@ $SQLcomprobarNombre = "SELECT NOMBRE_LOCAL FROM local where ID_CLIENTE = ".$idCl
 
 $esRegistrado = mysql_query($SQLcomprobarNombre);
 
-$SQLagregar = "INSERT INTO local VALUES(0,".$idCliente.",".$regionLocal.",".$comunaLocal.",'".$nombreLocal."','".$direccionLocal."',".$latitudLocal.",".$longitudLocal.",'".$categoria."','".$URL_full."','".$emailLocal."','".$webLocal."',0,'".$telefonoLocal."','".$descripcionLocal."');";
+$SQLagregar = "INSERT INTO local VALUES(0,".$idCliente.",".$regionLocal.",".$comunaLocal.",'".$nombreLocal."','".$direccionLocal."',".$latitudLocal.",".$longitudLocal.",'".$categoria."','".$URL_full."','".$emailLocal."','".$webLocal."',0,'".$telefonoLocal."','".$descripcionLocal."', 1);";
 
 $resultado =  mysql_query($esRegistrado);
     $estado = 0;
@@ -124,4 +127,7 @@ $resultado =  mysql_query($esRegistrado);
         } 
     }
     echo $estado;
+}else{
+     header("Location: ../plantillas/errorPrivilegios.html");
+}
     ?>

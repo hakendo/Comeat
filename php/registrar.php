@@ -23,10 +23,10 @@
 
     //Query SQL
     //Verificamos si el correo electronico ya está registrado
-    $SQLcomprobar = "SELECT CORREO_USUARIO FROM USUARIO where CORREO_USUARIO= '".$email."'";
+    $SQLcomprobar = "SELECT CORREO_USUARIO FROM usuario where CORREO_USUARIO= '".$email."'";
     $esRegistrado = mysql_query($SQLcomprobar);
 
-    $SQLagregar = "INSERT INTO USUARIO VALUES (0,'".$nombre1."','".$nombre2."','".$primerApellido."','".$segundoApellido."','".$email."','".$password."');";
+    $SQLagregar = "INSERT INTO usuario VALUES (0,'".$nombre1."','".$nombre2."','".$primerApellido."','".$segundoApellido."','".$email."','".$password."');";
 
     $estado = 0;
     if (mysql_num_rows($esRegistrado) > 0)
@@ -37,10 +37,6 @@
             
             $agregar=mysql_query($SQLagregar); 
                 if($agregar){ 
-                    //Crear directorio de usuario para guardar imagenes
-                    /*if(!is_dir('usuario/'.$email)) {
-                     mkdir('usuario/'.$email, 0755);
-                    }*/
 
                     $objConnect->closeConect();
                     $estado = 2;

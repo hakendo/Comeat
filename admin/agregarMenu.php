@@ -5,11 +5,11 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
   if($_SESSION["esACTIVADO"] == 1)
   {
       //Recopilación de información del usuario logeado.
-    $nombre = $_SESSION["NOMBRE"];
-    $apellidoPaterno = $_SESSION["APELLIDO1"];
-    $apellidoMaterno = $_SESSION["APELLIDO2"];
+
     $correo = $_SESSION["CORREO"];
     $id_cliente = $_SESSION["ID_CLIENTE"];
+    $id_categoria_menu = $_SESSION["ID_CATEGORIA_MENU"];
+    $id_local = $_SESSION["ID_LOCAL"];
       //Datos de QUERY
     require'../PDO/conexion.php';
 
@@ -19,7 +19,8 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
      //Verificamos el estado de la cuenta (sí o sí)
     $consultaEstado = "SELECT esACTIVADO from cliente WHERE ID_CLIENTE = ".$id_cliente.";";
     $query_Estado = mysql_query($consultaEstado) or die ("No se ha podido realizar la consulta en la BD".$consulta);
-    $col = mysql_fetch_array($query_Estado);               
+    $col = mysql_fetch_array($query_Estado); 
+
     if(!$col["esACTIVADO"] == 1){
 
       $_SESSION["esACTIVADO"] = 0;
@@ -136,10 +137,10 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
 
                         <li><a href="menus.php" class="app-centrar app-active">men&uacute;s</a></li>
 
-                        <li><a href="../planes.html" class="app-centrar" >Garzones</a></li>
+                        <li><a href="garzones.php" class="app-centrar" >Garzones</a></li>
                         <?php
                         if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2){
-                          echo "<li><a href='../mapaComeat.html' class='app-centrar'>informes</a></li>";
+                          echo "<li><a href='informes.php' class='app-centrar'>informes</a></li>";
                         }
 
                         if($_SESSION["PRIVILEGIO"] == 1){
@@ -157,7 +158,7 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
                 <!-- Titulo -->
                 <div class="panel-header header">
                   <p>
-                    <h3 class="app-font-style-titulo"> Usted est&aacute; agregando un nuevo Local.</h3>
+                    <h3 class="app-font-style-titulo"> Usted est&aacute; agregando un nuevo Men&uacute;.</h3>
                   </p>
                 </div>
                 <div class="panel-body fondo-dos">
@@ -167,74 +168,45 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
 
                      <form id="formulario" name="formulario" enctype="multipart/form-data">
 
-                      <!-- Nombre Local  -->
+                      <!-- Nombre Menu  -->
                       <div class="form-group">
-                        <label for="asunto_form">Nombre de local:</label>
-                        <input type="text" minlength="2" maxlength="30" class="form-control" id="nombreLocal" name="nombreLocal" placeholder="Ingrese el nombre de su local" required/>
+                        <label for="asunto_form">Nombre del men&uacute;:</label>
+                        <input type="text" minlength="2" maxlength="50" class="form-control" id="nombreMenu" name="nombreMenu" placeholder="Ingrese el nombre del men&uacute;" required/>
+                        <div id="errorNombre" name="errorNombre" class="hidden">
+                         <span class="label label-danger">Por favor ingrese el nombre del menú correctamente</span>
+                        </div>
                       </div>
-                      <!-- Direccion Local  -->
+                      <!-- Precio menu  -->
                       <div class="form-group">
-                        <label for="asunto_form">Direcci&oacute;n de local:</label>
-                        <input type="text" minlength="2" maxlength="100" class="form-control" id="direccionLocal" name="direccionLocal" placeholder="Ingrese la direcci&oacute;n de su local" required/>
+                        <label for="asunto_form">Precio del men&uacute;:</label>
+                        <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input type="number" class="form-control"  placeholder="Ingrese el precio del men&uacute;" required id="precioMenu" name="precioMenu">
+                        <span class="input-group-addon">.00</span>
+                        </div>
+                        <div id="errorPrecio" name="errorPrecio" class="hidden">
+                         <span class="label label-danger">Por favor ingrese el precio correctamente</span>
+                       </div>
                       </div>
-
-
-                      <!-- REGION  -->
-                      <div class="form-group">
-                       <label for="asunto_form">Regi&oacute;n:</label>
-                       <select id="region" name="region" class="form-control">
-                         <option value="">Seleccione una regi&oacute;n</option>
-                         <?php
-                         
-                           //Inicio de rescate de variables por medio de PHP.
-                         $objConnect->connect();
-                           //Verificamos el estado de la cuenta (sí o sí)
-                         $queryRegion = "SELECT * from region;";
-                         $datos_Region = mysql_query($queryRegion) or die ("No se ha podido realizar la consulta en la BD".$consulta);
-                         while ($row = mysql_fetch_array($datos_Region)){
-                          echo "<option value='".$row['ID_REGION']."'>".$row['NOMBRE_REGION']."</option>";
-                        } 
-                        $objConnect->closeConect();
-
-                        ?>
-                      </select>
-                    </div>
-                    <!-- COMUNA  -->
-                    <div class="form-group">
-                     <label for="asunto_form">Comuna:</label>
-                     <select id="comuna" name="comuna" class="form-control">
-                       <option value="">Seleccione...</option>
-                       
-                     </select>
-                   </div>
+  
+                     
                  </div>
                  <!-- Columna 2 -->
                  <div class="col-xs-12 col-md-4">
 
-                   <!-- Telefono Local  -->
+                   <!-- Descuento  -->
                    <div class="form-group">
-                    <label for="asunto_form">Tel&eacute;fono de local:</label>
-                    <input type="text"  maxlength="13" class="form-control" id="telefonoLocal" name="telefonoLocal" placeholder="N&uacute;mero telef&oacute;nico" />
+                    <label for="asunto_form">Descuento del men&uacute;</label>
+                    
+                    <div class="input-group">
+                      <span class="input-group-addon">%</span>
+                      <input type="number" max="100" class="form-control"  placeholder="Ingrese el porcentaje de descuento" required id="descuentoMenu" name="descuentoMenu">
+                      </div>
+                    <div id="errorDescuento" name="errorDescuento" class="hidden">
+                     <span class="label label-danger">Por favor ingrese el descuento correctamente</span>
+                   </div>
                   </div>
-                  <!-- Latitud  -->
-                  <div class="form-group">
-                    <label for="asunto_form">Latitud:</label>
-                    <input type="number" min="5" minlength="2" maxlength="60" class="form-control" id="latitudLocal" name="latitudLocal" placeholder="Latitud" required/>
-                  </div>
-                  <!-- Longitud  -->
-                  <div class="form-group">
-                    <label for="asunto_form">Longitud:</label>
-                    <input type="number"  min="5" maxlength="60" class="form-control" id="longitudLocal" name="longitudLocal" placeholder="Longitud" required/>
-                  </div>
-                  <!-- Categoria  -->
-                  <div class="form-group">
-                   <label for="asunto_form">Categor&iacute;a:</label>
-                   <select id="categoria" name="categoria" class="form-control">
-                     <option value="RESTAURANTE">Restaurante</option>
-                     <option value="BAR">Bar</option>
-                     <option value="CAFETERIA">Cafetería</option>
-                   </select>
-                 </div>
+                  
                  <!-- Imagen --> 
 
                  <div class="form-group">
@@ -249,23 +221,14 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
                </div>
                <!-- Columna 3 -->
                <div class="col-xs-12 col-md-4">
-
-
-                 <!-- Email local  -->
-                 <div class="form-group">
-                  <label for="asunto_form">Email:</label>
-                  <input type="email" minlength="6" maxlength="100" class="form-control" id="emailLocal" name="emailLocal" placeholder="ejemplo@dominio.cl" />
-                </div>
-                <!-- WebwebLocal local  -->
-                <div class="form-group">
-                  <label for="asunto_form">Web:</label>
-                  <input type="text" minlength="6" maxlength="120" class="form-control" id="webLocal" name="webLocal" placeholder="www.ejemplo.cl" />
-                </div>
                 
                 <!-- Descripcion -->
                 <div class=" form-group">
                   <label for="descripcion_form">Descripci&oacute;n</label>
-                  <textarea  class="formulario-area" cols="1" rows="1" id="descripcion"  maxlength="150" name="descripcion" placeholder="Descripci&oacute;n del local..."></textarea>
+                  <textarea  class="formulario-area" cols="1" rows="1" id="descripcionMenu"  maxlength="150" name="descripcionMenu" placeholder="Descripci&oacute;n del men&uacute;..."></textarea>
+                  <div id="errorDescripcion" name="errorDescripcion" class="hidden">
+                         <span class="label label-danger">Por favor ingrese la descripci&oacute;n correctamente</span>
+                       </div>
                 </div>
 
                 <!-- ID LOCAL -->
@@ -280,7 +243,7 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
                </div>
 
                <div class="form-group">
-                <input type="button" id="btnAgregarLocal" name="btnAgregarLocal" class="btn btn-success" value="Agregar nuevo local"> 
+                <input type="button" id="btnAgregarMenuEjecucion" name="btnAgregarMenuEjecucion" class="btn btn-success" value="Agregar nuevo men&uacute;"> 
               </div>  
 
             </form> 
@@ -332,7 +295,7 @@ if($_SESSION["PRIVILEGIO"] == 1 || $_SESSION["PRIVILEGIO"] == 2 || $_SESSION["PR
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>
 
-        <script src="../js/jquery/locales.js"></script>
+        <script src="../js/jquery/gestionMenu.js"></script>
         <script src="../js/jquery.numeric.js"></script>
 
         <script type="text/javascript">

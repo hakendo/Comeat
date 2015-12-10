@@ -30,10 +30,7 @@ $(document).ready(function () {  
 		    	});
 		    }
 		});
-	/*$('#btnEditar').click(function() {
 
-		window.location = '../admin/editarLocal.php';
-	});	*/
 
 $('#btnAgregarLocal').click(function(){
 
